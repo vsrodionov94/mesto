@@ -1,5 +1,6 @@
 .profile__info {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   max-width: 336px;
   align-content: flex-start;
@@ -9,7 +10,6 @@
 
 @media screen and (max-width: 570px) {
   .profile__info {
-    flex-direction: column;
     justify-items: center;
     margin-right: 0;
     margin-bottom: 36px;
