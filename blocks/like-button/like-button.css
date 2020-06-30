@@ -2,6 +2,7 @@
   background: url('../../images/like.svg');
   width: 21px;
   height: 18px;
+  transition: opacity .5s ease;
 }
 
 .like-button:hover {

@@ -6,6 +6,7 @@
   align-self: center;
   border: 1px solid #FFFFFF;
   box-sizing: border-box;
+  transition: opacity .5s ease;
 }
 
 .edit-button:hover {

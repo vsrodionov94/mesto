@@ -8,6 +8,7 @@
   background: url('../../images/Close_Icon.svg') no-repeat;
   background-position: center;
   padding: 0;
+  transition: opacity .5s ease;
 }
 
 .esc-button:hover {

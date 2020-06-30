@@ -2,6 +2,7 @@
 @import url('./__avatar/profile__avatar.css');
 @import url('./__name/profile__name.css');
 @import url('./__profession/profile__proffession.css');
+@import url('./__name-text/profile__name-text.css');
 
 .profile {
   padding-top: 40px;

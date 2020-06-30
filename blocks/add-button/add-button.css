@@ -7,12 +7,14 @@
   border: 2px solid #FFFFFF;
   box-sizing: border-box;
   border-radius: 2px;
+  transition: opacity .5s ease;
 }
 
 .add-button:hover {
   opacity: .6;
   cursor: pointer;
 }
+
 
 @media screen and (max-width: 570px) {
   .add-button {

@@ -1,0 +1,9 @@
+.profile__name-text {
+margin: 0 17px 0 0;
+}
+
+@media screen and (max-width: 570px) {
+  .profile__name-text {
+    margin-right: 10px;
+  }
+}

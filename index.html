@@ -15,7 +15,7 @@
       <section class="profile">
         <img src="images/avatar.jpg" alt="Avatar" class="profile__avatar">
         <div class="profile__info">
-          <p class="profile__name">Жак-Ив Кусто <button class="edit-button"></button></p>
+          <div class="profile__name"><p class="profile__name-text">Жак-Ив Кусто</p> <button class="edit-button"></button></div>
           <p class="profile__proffession">Исследователь океана</p>
         </div>
         <div class="add-button"></div>
@@ -66,7 +66,7 @@
           </div>
         </div>
       </section>
-      <section class="popup popup_opened">
+      <section class="popup">
         <div class="popup__container">
           <h3 class="popup__title">Редактировать профиль</h3>
           <input type="text" class="popup__field popup__field_assign_name" value="Жак-Ив Кусто">
@@ -80,5 +80,6 @@
       <p class="footer__copyright">&copy; 2020. Mesto Russia</p>
     </footer>
   </div>
+  <script src="./blocks/popup/popup.js"></script>
 </body>
 </html>
