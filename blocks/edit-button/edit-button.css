@@ -8,6 +8,11 @@
   box-sizing: border-box;
 }
 
+.edit-button:hover {
+  opacity: .6;
+  cursor: pointer;
+}
+
 @media screen and (max-width: 570px) {
   .add-button {
   background-size: 7.5px;

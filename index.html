@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <title>Путешествия по России</title>
+  <title>Mesto</title>
 </head>
 <body>
   <div class="page">
@@ -16,7 +16,6 @@
         <img src="images/avatar.jpg" alt="Avatar" class="profile__avatar">
         <div class="profile__info">
           <p class="profile__name">Жак-Ив Кусто <button class="edit-button"></button></p>
-
           <p class="profile__proffession">Исследователь океана</p>
         </div>
         <div class="add-button"></div>
@@ -65,6 +64,15 @@
               <div class="like-button"></div>
             </div>
           </div>
+        </div>
+      </section>
+      <section class="popup">
+        <div class="popup__container">
+          <h3 class="popup__title">Редактировать профиль</h3>
+          <input type="text" class="popup__field popup__field_assign_name" value="Жак-Ив Кусто">
+          <input type="text" class="popup__field popup__field_assign_proffesion" value="Исследователь океана">
+          <input type="submit" value="Сохранить" class="submit-button">
+          <button class="esc-button"></button>
         </div>
       </section>
     </main>

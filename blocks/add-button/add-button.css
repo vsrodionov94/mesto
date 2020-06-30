@@ -1,5 +1,4 @@
 .add-button {
-
   height: 50px;
   min-width: 150px;
   background: url('../../images/Add_Button.svg') no-repeat;
@@ -8,6 +7,11 @@
   border: 2px solid #FFFFFF;
   box-sizing: border-box;
   border-radius: 2px;
+}
+
+.add-button:hover {
+  opacity: .6;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 570px) {

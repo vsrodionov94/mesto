@@ -1,3 +1,16 @@
 .esc-button {
+  position: absolute;
+  right: -41px;
+  top: -41px;
+  width: 41px;
+  height: 41px;
+  border: 0;
+  background: url('../../images/Close_Icon.svg') no-repeat;
+  background-position: center;
+  padding: 0;
+}
 
+.esc-button:hover {
+  opacity: .6;
+  cursor: pointer;
 }
