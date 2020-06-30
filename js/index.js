@@ -7,6 +7,7 @@ let proffesion = profile.querySelector('.profile__proffession');
 let fieldName = popup.querySelector('.popup__field_assign_name');
 let fieldProffesion = popup.querySelector('.popup__field_assign_proffesion');
 let submitButtonProfile = popup.querySelector('.popup__submit-button');
+let formProfile = popup.querySelector('.popup__container');
 
 function openEditProfile() {
   popup.classList.add('popup_opened');
@@ -27,5 +28,5 @@ function editProfile(event) {
 
 editButton.addEventListener('click', openEditProfile);
 escButton.addEventListener('click', closeEditProfile);
-submitButtonProfile.addEventListener('submit', editProfile);
+formProfile.addEventListener('submit', editProfile);
 
