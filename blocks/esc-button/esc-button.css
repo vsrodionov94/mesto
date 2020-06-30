@@ -14,3 +14,10 @@
   opacity: .6;
   cursor: pointer;
 }
+
+@media screen and (max-width: 570px) {
+  .esc-button {
+  right: 0;
+  top: -41px;
+  }
+}

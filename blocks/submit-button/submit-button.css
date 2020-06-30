@@ -16,3 +16,9 @@
   opacity: .6;
   cursor: pointer;
 }
+
+@media screen and (max-width: 570px) {
+  .submit-button {
+  width: 90%;
+  }
+}
