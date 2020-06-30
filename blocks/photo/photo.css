@@ -1,0 +1,12 @@
+@import url('./__text/photo__text.css');
+@import url('./__item/photo__item.css');
+@import url('./__image/photo__image.css');
+@import url('./__caption/photo__caption.css');
+
+
+.photo {
+  margin: 0 auto;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+}

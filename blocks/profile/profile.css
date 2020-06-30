@@ -1,0 +1,12 @@
+@import url('./__info/profile__info.css');
+@import url('./__avatar/profile__avatar.css');
+@import url('./__name/profile__name.css');
+@import url('./__profession/profile__proffession.css');
+
+.profile {
+  padding-top: 40px;
+  display: flex;
+  height: 120px;
+  width: 70%;
+  margin: 0 auto;
+}
