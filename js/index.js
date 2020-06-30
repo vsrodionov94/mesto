@@ -10,6 +10,8 @@ let submitButtonProfile = popup.querySelector('.popup__submit-button');
 
 function openEditProfile() {
   popup.classList.add('popup_opened');
+  fieldName.value = name.textContent;
+  fieldProffesion.value = proffesion.textContent;
 }
 
 function closeEditProfile() {
