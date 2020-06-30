@@ -9,6 +9,12 @@
     margin: 0 auto;
 }
 
+@media screen and (max-width: 882px) {
+  .header {
+    padding-left: 27px;
+  }
+}
+
 @media screen and (max-width: 570px) {
   .header {
     padding-left: 27px;
