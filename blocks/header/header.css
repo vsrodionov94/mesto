@@ -3,9 +3,9 @@
 
 .header {
     padding-top: 45px;
+    padding-bottom: 40px;
     max-width: 882px;
-    height: 74px;
-    border-bottom: 1px solid #545454;
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
     margin: 0 auto;
 }
 
@@ -19,7 +19,7 @@
   .header {
     padding-left: 27px;
     padding-top: 28px;
-    height: 56px;
+    padding-bottom: 31.5px;
   }
 }
 

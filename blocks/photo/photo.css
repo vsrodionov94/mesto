@@ -2,6 +2,7 @@
 @import url('./__item/photo__item.css');
 @import url('./__image/photo__image.css');
 @import url('./__caption/photo__caption.css');
+@import url('./__like-button/photo__like-button.css');
 
 
 .photo {

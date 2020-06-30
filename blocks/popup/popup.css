@@ -3,6 +3,8 @@
 @import url('./__field/popup__field.css');
 @import url('./__field/_assign/popup__field_assign_name.css');
 @import url('./__field/_assign/popup__field_assign_proffesion.css');
+@import url('./__esc-button/popup__esc-button.css');
+@import url('./__submit-button/popup__submit-button.css');
 
 .popup {
   width: 100vw;

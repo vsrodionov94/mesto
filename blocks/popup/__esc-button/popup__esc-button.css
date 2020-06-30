@@ -1,24 +1,24 @@
-.esc-button {
+.popup__esc-button {
   position: absolute;
   right: -41px;
   top: -41px;
   width: 41px;
   height: 41px;
   border: 0;
-  background: url('../../images/Close_Icon.svg') no-repeat;
+  background: url('../../../images/close-icon.svg') no-repeat;
   background-position: center;
   padding: 0;
   transition: opacity .5s ease;
 }
 
-.esc-button:hover {
+.popup__esc-button:hover {
   opacity: .6;
   cursor: pointer;
 }
 
 @media screen and (max-width: 570px) {
-  .esc-button {
-  right: 0;
-  top: -41px;
+  .popup__esc-button {
+    right: 0;
+    top: -41px;
   }
 }

@@ -9,71 +9,74 @@
 <body>
   <div class="page">
     <header class="header">
-        <img class="header__logo" src="./images/logo.svg">
+        <img class="header__logo" src="./images/logo.svg" alt="Логотип">
     </header>
     <main class="content">
       <section class="profile">
-        <img src="images/avatar.jpg" alt="Avatar" class="profile__avatar">
+        <img src="images/avatar.jpg" alt="Аватар" class="profile__avatar">
         <div class="profile__info">
-          <div class="profile__name"><p class="profile__name-text">Жак-Ив Кусто</p> <button class="edit-button"></button></div>
+          <div class="profile__name">
+            <h1 class="profile__name-text">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button" type="button"></button>
+          </div>
           <p class="profile__proffession">Исследователь океана</p>
         </div>
-        <div class="add-button"></div>
+        <button class="profile__add-button" type="button"></button>
       </section>
       <section class="photos">
         <div class="photo">
           <div class="photo__item">
-            <img class="photo__image" src="./images/london.jpg">
+            <img class="photo__image" src="./images/london.jpg" alt="Лондон">
             <div class="photo__caption">
-              <p class="photo__text">Лондон</p>
-              <div class="like-button"></div>
+              <h2 class="photo__text">Лондон</h2>
+              <button class="photo__like-button" type="button"></button>
             </div>
           </div>
           <div class="photo__item">
-            <img class="photo__image" src="./images/san-francisco.jpg">
+            <img class="photo__image" src="./images/san-francisco.jpg" alt="Сан-Франциско">
             <div class="photo__caption">
-              <p class="photo__text">Сан-Франциско</p>
-              <div class="like-button"></div>
+              <h2 class="photo__text">Сан-Франциско</h2>
+              <button class="photo__like-button"></button>
             </div>
           </div>
           <div class="photo__item">
-            <img class="photo__image" src="./images/san-luis-obispo.jpg">
+            <img class="photo__image" src="./images/san-luis-obispo.jpg" alt="Сан-Луис-Обиспо">
             <div class="photo__caption">
-              <p class="photo__text">Сан-Луис-Обиспо</p>
-              <div class="like-button"></div>
+              <h2 class="photo__text">Сан-Луис-Обиспо</h2>
+              <button class="photo__like-button" type="button"></button>
             </div>
           </div>
           <div class="photo__item">
-            <img class="photo__image" src="./images/tokyo.jpg">
+            <img class="photo__image" src="./images/tokyo.jpg" alt="Токио">
             <div class="photo__caption">
-              <p class="photo__text">Токио</p>
-              <div class="like-button"></div>
+              <h2 class="photo__text">Токио</h2>
+              <button class="photo__like-button" type="button"></button>
             </div>
           </div>
           <div class="photo__item">
-            <img class="photo__image" src="./images/arizona.jpg">
+            <img class="photo__image" src="./images/arizona.jpg" alt="Аризона">
             <div class="photo__caption">
-              <p class="photo__text">Аризона</p>
-              <div class="like-button"></div>
+              <h2 class="photo__text">Аризона</h2>
+              <button class="photo__like-button" type="button"></button>
             </div>
           </div>
           <div class="photo__item">
-            <img class="photo__image" src="./images/chicago.jpg">
+            <img class="photo__image" src="./images/chicago.jpg" alt="Чикаго">
             <div class="photo__caption">
-              <p class="photo__text">Чикаго</p>
-              <div class="like-button"></div>
+              <h2 class="photo__text">Чикаго</h2>
+              <button class="photo__like-button" type="button"></button>
             </div>
           </div>
         </div>
       </section>
       <section class="popup">
-        <div class="popup__container">
+        <form class="popup__container" name="editForm">
           <h3 class="popup__title">Редактировать профиль</h3>
-          <input type="text" class="popup__field popup__field_assign_name" value="Жак-Ив Кусто">
-          <input type="text" class="popup__field popup__field_assign_proffesion" value="Исследователь океана">
-          <input type="submit" value="Сохранить" class="submit-button">
-          <button class="esc-button"></button>
-        </div>
+          <input type="text" class="popup__field popup__field_assign_name" placeholder="Жак-Ив Кусто" name="fieldName" required>
+          <input type="text" class="popup__field popup__field_assign_proffesion" placeholder="Исследователь океана" name="fieldProffesion" required>
+          <button type="submit" class="popup__submit-button">Сохранить</button>
+          <button class="popup__esc-button" type="button"></button>
+        </form>
       </section>
     </main>
     <footer class="footer">
