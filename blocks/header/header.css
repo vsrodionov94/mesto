@@ -3,9 +3,17 @@
 
 .header {
     padding-top: 45px;
-    width: 70%;
+    max-width: 882px;
     height: 74px;
     border-bottom: 1px solid #545454;
     margin: 0 auto;
+}
+
+@media screen and (max-width: 570px) {
+  .header {
+    padding-left: 27px;
+    padding-top: 28px;
+    height: 56px;
+  }
 }
 

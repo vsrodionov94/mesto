@@ -6,7 +6,11 @@
 
 .photo {
   margin: 0 auto;
-  max-width: 100%;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 300px));
+  grid-template-columns: repeat(auto-fill, minmax(282px, 282px));
+  grid-column-gap: 18px;
+  grid-row-gap:  21px;
+  justify-content: center;
+
 }

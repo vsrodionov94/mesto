@@ -4,3 +4,10 @@
   font-weight: 400;
   line-height: 22px;
 }
+@media screen and (max-width: 570px) {
+  .profile__proffession {
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0 auto;
+  }
+}
