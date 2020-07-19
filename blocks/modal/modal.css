@@ -7,6 +7,9 @@
 @import url('./__field/_assign/modal__field_assign_title.css');
 @import url('./__esc-button/modal__esc-button.css');
 @import url('./__submit-button/modal__submit-button.css');
+@import url('./__image/modal__image.css');
+@import url('./_assign/modal_assign_album.css');
+@import url('./__large-photo/modal__large-photo.css');
 
 
 .modal {
