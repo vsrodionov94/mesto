@@ -3,6 +3,7 @@
 @import url('./__image/photo__image.css');
 @import url('./__caption/photo__caption.css');
 @import url('./__like-button/photo__like-button.css');
+@import url('./__delete-button/photo__delete-button.css');
 
 
 .photo {
