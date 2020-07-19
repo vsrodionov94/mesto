@@ -1,23 +1,26 @@
-let profile = document.querySelector('.profile');
-let editButton = profile.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let escButton = popup.querySelector('.popup__esc-button');
-let name = profile.querySelector('.profile__name-text');
-let proffesion = profile.querySelector('.profile__proffession');
-let fieldName = popup.querySelector('.popup__field_assign_name');
-let fieldProffesion = popup.querySelector('.popup__field_assign_proffesion');
-let submitButtonProfile = popup.querySelector('.popup__submit-button');
-let formProfile = popup.querySelector('.popup__container');
+const profile = document.querySelector('.profile');
+const editButton = profile.querySelector('.profile__edit-button');
+const name = profile.querySelector('.profile__name-text');
+const proffesion = profile.querySelector('.profile__proffession');
 
-function openEditProfile() {
-  popup.classList.add('popup_opened');
+const modalEdit = document.querySelector('.modal_form_edit');
+const escButton = modalEdit.querySelector('.modal__esc-button');
+const fieldName = modalEdit.querySelector('.modal__field_assign_name');
+const fieldProffesion = modalEdit.querySelector('.modal__field_assign_proffesion');
+const formProfile = modalEdit.querySelector('.modal__container');
+
+function toggleModal(modalName) {
+  if (modalName.classList.contains('modal_opened')){
+    modalName.classList.remove('modal_opened');
+  }
+  modalName.classList.toggle('modal_opened');
   fieldName.value = name.textContent;
   fieldProffesion.value = proffesion.textContent;
 }
-
-function closeEditProfile() {
-  popup.classList.remove('popup_opened');
-}
+//
+// function closeEditProfile() {
+//   modal.classList.remove('modal_opened');
+// }
 
 function editProfile(event) {
   event.preventDefault();
@@ -26,7 +29,7 @@ function editProfile(event) {
   closeEditProfile();
 }
 
-editButton.addEventListener('click', openEditProfile);
-escButton.addEventListener('click', closeEditProfile);
+editButton.addEventListener('click', toggleModal(modalEdit));
+// escButton.addEventListener('click', closeEditProfile);
 formProfile.addEventListener('submit', editProfile);
 

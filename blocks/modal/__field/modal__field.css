@@ -1,4 +1,4 @@
-.popup__field {
+.modal__field {
   border: 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   width: 358px;
@@ -12,7 +12,10 @@
 
 
 @media screen and (max-width: 570px) {
-  .popup__field {
-  width: 90%;
+  .modal__field {
+    width: 200px;
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 20px;
   }
 }

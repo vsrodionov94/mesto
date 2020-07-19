@@ -1,0 +1,17 @@
+.photo__delete-button {
+  background: url('../../../images/delete-button.svg');
+  width: 18px;
+  height: 21px;
+  transition: opacity .5s ease;
+  border: 0;
+  padding: 0;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  z-index: 10;
+}
+
+.photo__delete-button:hover {
+  opacity: .6;
+  cursor: pointer;
+}

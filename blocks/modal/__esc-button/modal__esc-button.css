@@ -1,4 +1,4 @@
-.popup__esc-button {
+.modal__esc-button {
   position: absolute;
   right: -41px;
   top: -41px;
@@ -11,14 +11,15 @@
   transition: opacity .5s ease;
 }
 
-.popup__esc-button:hover {
+.modal__esc-button:hover {
   opacity: .6;
   cursor: pointer;
 }
 
 @media screen and (max-width: 570px) {
-  .popup__esc-button {
-    right: 0;
-    top: -41px;
+  .modal__esc-button {
+    right: -31px;
+    top: -31px;
+    background: url('../../../images/close-icon-small.svg') no-repeat;
   }
 }

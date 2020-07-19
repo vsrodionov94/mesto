@@ -1,0 +1,22 @@
+@import url('./__container/modal__container.css');
+@import url('./__title/modal__title.css');
+@import url('./__field/modal__field.css');
+@import url('./__field/_assign/modal__field_assign_name.css');
+@import url('./__field/_assign/modal__field_assign_proffesion.css');
+@import url('./__field/_assign/modal__field_assign_link.css');
+@import url('./__field/_assign/modal__field_assign_title.css');
+@import url('./__esc-button/modal__esc-button.css');
+@import url('./__submit-button/modal__submit-button.css');
+
+
+.modal {
+  width: 100vw;
+  min-width: 300px;
+  height: 100vh;
+  background: rgba(0, 0, 0, .5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  display: none;
+}

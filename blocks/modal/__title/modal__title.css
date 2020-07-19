@@ -1,4 +1,4 @@
-.popup__title {
+.modal__title {
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
@@ -10,9 +10,13 @@
 }
 
 @media screen and (max-width: 570px) {
-  .popup__title {
-  margin-bottom: 34px;
-  text-align: center;
-  width: 90%
+  .modal__title {
+    margin-top: 30px;
+    margin-bottom: 36px;
+    text-align: center;
+    width: 200px;
+    font-size: 18px;
+    line-height: 22px;
+
   }
 }
