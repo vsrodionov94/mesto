@@ -1,3 +1,4 @@
+
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector('.profile__edit-button');
 const name = profile.querySelector('.profile__name-text');
@@ -7,7 +8,7 @@ const addButton = profile.querySelector('.profile__add-button')
 const modalEdit = document.querySelector('.modal_assign_form-eidt');
 const escButtonModalEdit = modalEdit.querySelector('.modal__esc-button');
 const fieldName = modalEdit.querySelector('.modal__field_assign_name');
-const fieldprofession = modalEdit.querySelector('.modal__field_assign_profession');
+const fieldProfession = modalEdit.querySelector('.modal__field_assign_profession');
 const formProfile = modalEdit.querySelector('.modal__container');
 
 const modalAdd = document.querySelector('.modal_assign_form-add');
@@ -15,12 +16,12 @@ const escButtonModalAdd = modalAdd.querySelector('.modal__esc-button');
 const fieldTitle = modalAdd.querySelector('.modal__field_assign_title');
 const fieldLink = modalAdd.querySelector('.modal__field_assign_link');
 const formAdd = modalAdd.querySelector('.modal__container');
+
 const photos = document.querySelector('.photos');
 const photo = photos.querySelector('.photo');
 
 const modalAlbum = document.querySelector('.modal_assign_album');
 const imageAlbum = modalAlbum.querySelector('.modal__large-photo');
-
 
 const initialCards = [
   {
@@ -49,28 +50,33 @@ const initialCards = [
   }
 ];
 
-
 function toggleModal(modalName) {
   modalName.classList.toggle('modal_opened');
+
+}
+
+function fillModalEdit() {
   fieldName.value = name.textContent;
-  fieldprofession.value = profession.textContent;
+  fieldProfession.value = profession.textContent;
+}
+
+function clearFormAdd() {
+  fieldTitle.value = '';
+  fieldLink.value = '';
 }
 
 function submitModalEdit(event){
   event.preventDefault();
   name.textContent = fieldName.value;
-  profession.textContent = fieldprofession.value;
+  profession.textContent = fieldProfession.value;
   toggleModal(modalEdit);
 }
 
-function newInitialCards(event) {
-  event.preventDefault();
-  initialCards.unshift({name: fieldTitle.value, link: fieldLink.value});
-  toggleModal(modalAdd);
-  addNewPhoto();
-}
+function newInitialCards() {initialCards.unshift({name: fieldTitle.value, link: fieldLink.value})}
 
-function addNewPhoto() {
+function addNewPhoto(event) {
+  event.preventDefault();
+  newInitialCards();
   photo.insertAdjacentHTML('afterbegin', `
          <div class="photo__item">
             <button class="photo__delete-button" type="button"></button>
@@ -80,6 +86,8 @@ function addNewPhoto() {
               <button class="photo__like-button" type="button"></button>
             </div>
          </div>`)
+  clearFormAdd();
+  toggleModal(modalAdd);
 }
 
 function startPhoto() {
@@ -94,23 +102,19 @@ function startPhoto() {
             </div>
          </div>`
   }
-  like();
-  deleteCard();
-  openPhoto();
 }
 
-function like() {
+function toggleLike() {
   photo.onclick = function (event) {
     if (!event.target.classList.contains('photo__like-button')) return;
     let likeButton = event.target.closest('.photo__like-button');
     likeButton.classList.toggle('photo__like-button_active');
-    console.log(likeButton)
   };
 }
 
 function deleteCard() {
   photos.onclick = function(event) {
-    if (event.target.className != 'photo__delete-button') return;
+    if (!event.target.classList.contains('photo__delete-button')) return;
     let photoCard = event.target.closest('.photo__item');
     photoCard.remove();
   }
@@ -118,7 +122,7 @@ function deleteCard() {
 
 function openPhoto() {
   document.onclick = function(event) {
-    if (event.target.className != 'photo__image') return;
+    if (!event.target.classList.contains('photo__image')) return;
     let openedPhoto = event.target.closest('.photo__image');
     let srcImage = openedPhoto.getAttribute('src');
     imageAlbum.innerHTML = `
@@ -131,17 +135,37 @@ function openPhoto() {
 
 function closeModalAlbum() {
   modalAlbum.onclick = function(event) {
-    if (event.target.className != 'modal__esc-button') return;
-    modalAlbum.classList.remove('modal_opened');
-}}
+    if (!event.target.classList.contains('modal__esc-button')) return;
+    toggleModal(modalAlbum);
+  }
+}
 
 window.onload = startPhoto();
 
-editButton.addEventListener('click', function(){toggleModal(modalEdit)});
-escButtonModalEdit.addEventListener('click', function(){toggleModal(modalEdit)});
+toggleLike();
+deleteCard();
+openPhoto();
+
+
+editButton.addEventListener('click', function(){
+  toggleModal(modalEdit);
+  fillModalEdit();
+});
+
+escButtonModalEdit.addEventListener('click', function(){
+  toggleModal(modalEdit);
+});
+
 formProfile.addEventListener('submit', submitModalEdit);
 
-addButton.addEventListener('click', function(){toggleModal(modalAdd)});
-escButtonModalAdd.addEventListener('click', function(){toggleModal(modalAdd)});
-formAdd.addEventListener('submit', newInitialCards);
+addButton.addEventListener('click', function(){
+  toggleModal(modalAdd);
+});
+
+escButtonModalAdd.addEventListener('click', function(){
+  toggleModal(modalAdd);
+  clearFormAdd();
+});
+
+formAdd.addEventListener('submit', addNewPhoto);
 
