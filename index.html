@@ -47,15 +47,30 @@
           </form>
       </section>
       <section class="modal modal_assign_album">
-        <div class="modal__large-photo">
 
-        </div>
       </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020. Mesto Russia</p>
     </footer>
   </div>
+  <template id="photo-item">
+    <div class="photo__item">
+      <button class="photo__delete-button" type="button"></button>
+      <img class="photo__image" src="" alt="">
+      <div class="photo__caption">
+        <h2 class="photo__text"></h2>
+        <button class="photo__like-button" type="button"></button>
+      </div>
+    </div>
+  </template>
+  <template id="photo-large">
+    <div class="modal__large-photo">
+      <img class="modal__image" src="" alt="">
+      <button class="modal__esc-button" type="button" aria-label="Закрыть"></button>
+      <p class="modal__caption"></p>
+    </div>
+  </template>
   <script src="./js/index.js"></script>
 </body>
 </html>

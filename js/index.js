@@ -21,7 +21,7 @@ const photos = document.querySelector('.photos');
 const photo = photos.querySelector('.photo');
 
 const modalAlbum = document.querySelector('.modal_assign_album');
-const imageAlbum = modalAlbum.querySelector('.modal__large-photo');
+
 
 const initialCards = [
   {
@@ -74,35 +74,35 @@ function submitModalEdit(event){
 
 function newInitialCards() {initialCards.unshift({name: fieldTitle.value, link: fieldLink.value})}
 
+function clearCards() {
+  const cards = document.querySelectorAll('.photo__item');
+  cards.forEach((card) => {card.remove()});
+}
+
 function addNewPhoto(event) {
   event.preventDefault();
   newInitialCards();
-  photo.insertAdjacentHTML('afterbegin', `
-         <div class="photo__item">
-            <button class="photo__delete-button" type="button"></button>
-            <img class="photo__image" src="${initialCards[0].link}" alt="${initialCards[0].name}">
-            <div class="photo__caption">
-              <h2 class="photo__text">${initialCards[0].name}</h2>
-              <button class="photo__like-button" type="button"></button>
-            </div>
-         </div>`)
+  clearCards();
+  startPhoto();
   clearFormAdd();
   toggleModal(modalAdd);
 }
 
-function startPhoto() {
-  for (let card of initialCards) {
-    photo.innerHTML += `
-        <div class="photo__item">
-            <button class="photo__delete-button" type="button"></button>
-            <img class="photo__image" src="${card.link}" alt="${card.name}">
-            <div class="photo__caption">
-              <h2 class="photo__text">${card.name}</h2>
-              <button class="photo__like-button" type="button"></button>
-            </div>
-         </div>`
-  }
+function addPhoto(elem) {
+  const photoCardTemplate = document.querySelector('#photo-item').content;
+  const photoCardElement = photoCardTemplate.cloneNode(true);
+  photoCardElement.querySelector('.photo__image').setAttribute('src', elem.link);
+  photoCardElement.querySelector('.photo__image').setAttribute('alt', elem.name);
+  photoCardElement.querySelector('.photo__text').textContent = elem.name;
+  photo.append(photoCardElement);
 }
+
+
+
+function startPhoto() {
+  initialCards.forEach((card) => {
+    addPhoto(card);
+})}
 
 function toggleLike() {
   photo.onclick = function (event) {
@@ -123,13 +123,18 @@ function deleteCard() {
 function openPhoto() {
   document.onclick = function(event) {
     if (!event.target.classList.contains('photo__image')) return;
-    let openedPhoto = event.target.closest('.photo__image');
-    let srcImage = openedPhoto.getAttribute('src');
-    imageAlbum.innerHTML = `
-    <img class="modal__image" src="${srcImage}">
-    <button class="modal__esc-button" type="button" aria-label="Закрыть"></button>`
+    const photoOpened = event.target.closest('.photo__image');
+    const imageSrc = photoOpened.getAttribute('src');
+    const imageAlt = photoOpened.getAttribute('alt');
+    const modalPhotoTemplate = document.querySelector('#photo-large').content;
+    const modalPhotoElement = modalPhotoTemplate.cloneNode(true);
+    modalPhotoElement.querySelector('.modal__image').setAttribute('src', imageSrc);
+    modalPhotoElement.querySelector('.modal__image').setAttribute('alt', imageAlt);
+    modalPhotoElement.querySelector('.modal__caption').textContent = imageAlt;
+    modalAlbum.append(modalPhotoElement);
     toggleModal(modalAlbum);
     closeModalAlbum();
+
   }
 }
 
@@ -137,6 +142,8 @@ function closeModalAlbum() {
   modalAlbum.onclick = function(event) {
     if (!event.target.classList.contains('modal__esc-button')) return;
     toggleModal(modalAlbum);
+    const modalLargePhoto = document.querySelector('.modal__large-photo')
+    modalLargePhoto.remove()
   }
 }
 
