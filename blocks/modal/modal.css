@@ -10,6 +10,7 @@
 @import url('./__image/modal__image.css');
 @import url('./_assign/modal_assign_album.css');
 @import url('./__large-photo/modal__large-photo.css');
+@import url('./__caption/modal__caption.css');
 
 
 .modal {
