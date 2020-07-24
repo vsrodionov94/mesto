@@ -21,6 +21,10 @@ const photos = document.querySelector('.photos');
 const photo = photos.querySelector('.photo');
 
 const modalAlbum = document.querySelector('.modal_assign_album');
+const modalAlbumImage = modalAlbum.querySelector('.modal__image');
+const escButtonModalAlbum = modalAlbum.querySelector('.modal__esc-button');
+const modalAlbumCaption = modalAlbum.querySelector('.modal__caption');
+
 
 
 const initialCards = [
@@ -72,81 +76,48 @@ function submitModalEdit(event){
   toggleModal(modalEdit);
 }
 
-function appendPhotoCard(card) {
-    photo.append(card);
-}
-
-function preendPhotoCard(card) {
-  photo.prepend(card);
-
-}
-
-function addPhoto(elem, funcAddCard) {
+function addCard(elem) {
   const photoCardTemplate = document.querySelector('#photo-item').content;
   const photoCardElement = photoCardTemplate.cloneNode(true);
-  photoCardElement.querySelector('.photo__image').setAttribute('src', elem.link);
-  photoCardElement.querySelector('.photo__image').setAttribute('alt', elem.name);
-  photoCardElement.querySelector('.photo__text').textContent = elem.name;
-  toggleLike(photoCardElement);
-  deleteCard(photoCardElement)
-  renderModalAlbum(photoCardElement);
-  funcAddCard(photoCardElement);
+  const photoCardElementImage = photoCardElement.querySelector('.photo__image');
+  const photoCardElementCaption = photoCardElement.querySelector('.photo__text');
+  const likeButton = photoCardElement.querySelector('.photo__like-button');
+  const deleteButton = photoCardElement.querySelector('.photo__delete-button');
+  const photoCard = photoCardElement.querySelector('.photo__item');
+
+  photoCardElementImage.setAttribute('src', elem.link);
+  photoCardElementImage.setAttribute('alt', elem.name);
+  photoCardElementCaption.textContent = elem.name;
+
+  likeButton.addEventListener('click', () => {event.target.classList.toggle('photo__like-button_active')})
+  deleteButton.addEventListener('click', () => {photoCard.remove()})
+  photoCardElementImage.addEventListener('click', () => {
+    modalAlbumImage.setAttribute('src', elem.link);
+    modalAlbumImage.setAttribute('alt', elem.name);
+    modalAlbumCaption.textContent = elem.name;
+    toggleModal(modalAlbum);
+  })
+
+  return targetCard = photoCardElement;
 }
 
-function newInitialCards() {initialCards.push({name: fieldTitle.value, link: fieldLink.value})}
-
-function addNewPhoto(event) {
+function renderNewCard(event) {
   event.preventDefault();
-  newInitialCards();
-  addPhoto(initialCards[initialCards.length - 1], preendPhotoCard);
+  const newCard = {name: fieldTitle.value, link: fieldLink.value}
+  addCard(newCard);
+  photo.prepend(targetCard);
   clearFormAdd();
   toggleModal(modalAdd);
 }
 
-function renderPhoto() {
-  initialCards.forEach((card) => {
-    addPhoto(card, appendPhotoCard);
+function renderAllCard() {
+  initialCards.forEach( card => {
+    addCard(card);
+    photo.append(targetCard);
   })
 }
 
-function toggleLike(elem) {
-  const likeButton = elem.querySelector('.photo__like-button');
-  likeButton.addEventListener('click', () => {
-    event.target.classList.toggle('photo__like-button_active');
-  })
-}
-
-function deleteCard(elem) {
-  const deleteButton = elem.querySelector('.photo__delete-button');
-  const photoCard = elem.querySelector('.photo__item');
-  deleteButton.addEventListener('click', () => {
-    photoCard.remove();
-  })
-}
-
-function renderModalAlbum(elem) {
-  const photoOpened = elem.querySelector('.photo__image');
-  const imageSrc = photoOpened.getAttribute('src');
-  const imageAlt = photoOpened.getAttribute('alt');
-
-  photoOpened.addEventListener('click', () => {
-    modalAlbum.innerHTML = `
-    <div class="modal__large-photo">
-      <img class="modal__image" src="${imageSrc}" alt="${imageAlt}">
-      <button class="modal__esc-button" type="button" aria-label="Закрыть"></button>
-      <p class="modal__caption">${imageAlt}</p>
-    </div>`
-    toggleModal(modalAlbum);
-    const closeButton = modalAlbum.querySelector('.modal__esc-button')
-    closeButton.addEventListener('click', () => {
-      toggleModal(modalAlbum);
-    })
-  })
-
-
-}
-
-window.onload = renderPhoto();
+window.onload = renderAllCard();
 
 editButton.addEventListener('click', function(){
   toggleModal(modalEdit);
@@ -168,6 +139,8 @@ escButtonModalAdd.addEventListener('click', function(){
   clearFormAdd();
 });
 
-formAdd.addEventListener('submit', addNewPhoto);
+formAdd.addEventListener('submit', renderNewCard);
 
-
+escButtonModalAlbum.addEventListener('click', () => {
+  toggleModal(modalAlbum);
+})
