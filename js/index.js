@@ -89,7 +89,7 @@ function addPhoto(elem, funcAddCard) {
   photoCardElement.querySelector('.photo__text').textContent = elem.name;
   toggleLike(photoCardElement);
   deleteCard(photoCardElement)
-  setAttributeModalAlbum(photoCardElement)
+  renderModalAlbum(photoCardElement);
   funcAddCard(photoCardElement);
 }
 
@@ -103,7 +103,7 @@ function addNewPhoto(event) {
   toggleModal(modalAdd);
 }
 
-function startPhoto() {
+function renderPhoto() {
   initialCards.forEach((card) => {
     addPhoto(card, appendPhotoCard);
   })
@@ -111,50 +111,44 @@ function startPhoto() {
 
 function toggleLike(elem) {
   const likeButton = elem.querySelector('.photo__like-button');
-  likeButton.addEventListener('click', function (evt) {
-    evt.target.classList.toggle('photo__like-button_active');
+  likeButton.addEventListener('click', () => {
+    event.target.classList.toggle('photo__like-button_active');
   })
 }
 
 function deleteCard(elem) {
   const deleteButton = elem.querySelector('.photo__delete-button');
   const photoCard = elem.querySelector('.photo__item');
-  deleteButton.addEventListener('click', function (evt) {
+  deleteButton.addEventListener('click', () => {
     photoCard.remove();
   })
 }
 
-function setAttributeModalAlbum(elem) {
+function renderModalAlbum(elem) {
   const photoOpened = elem.querySelector('.photo__image');
   const imageSrc = photoOpened.getAttribute('src');
   const imageAlt = photoOpened.getAttribute('alt');
-  const modalPhotoTemplate = document.querySelector('#photo-large').content;
-  const modalPhotoElement = modalPhotoTemplate.cloneNode(true);
+  const modalPhotoElement = document.querySelector('#photo-large').content.cloneNode(true);
   const closeButton = modalPhotoElement.querySelector('.modal__esc-button');
-  const modalLargePhoto = modalPhotoElement.querySelector('.modal__large-photo');
   modalPhotoElement.querySelector('.modal__image').setAttribute('src', imageSrc);
   modalPhotoElement.querySelector('.modal__image').setAttribute('alt', imageAlt);
   modalPhotoElement.querySelector('.modal__caption').textContent = imageAlt;
-  openModalAlbum(photoOpened, modalPhotoElement);
-  closeModalAlbum(closeButton, modalLargePhoto);
-}
 
-function openModalAlbum(elemOpen, elemAppend) {
-  elemOpen.addEventListener('click', function (evt) {
-    modalAlbum.append(elemAppend);
+  photoOpened.addEventListener('click', () => {
+    modalAlbum.append(modalPhotoElement);
     toggleModal(modalAlbum);
-
+    console.log(modalPhotoElement)
+    console.log(imageSrc)
   })
-}
 
-function closeModalAlbum(elemBtn, modalElem) {
-  elemBtn.addEventListener('click', function (evt) {
-    modalElem.remove()
+  closeButton.addEventListener('click', () => {
+    const openedElem = event.target.closest('.modal__large-photo');
+    openedElem.remove();
     toggleModal(modalAlbum);
   })
 }
 
-window.onload = startPhoto();
+window.onload = renderPhoto();
 
 editButton.addEventListener('click', function(){
   toggleModal(modalEdit);
