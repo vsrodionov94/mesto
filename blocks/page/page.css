@@ -8,7 +8,6 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
-  width: 100%;
   min-width: 300px;
   min-height: 100vh;
 }
