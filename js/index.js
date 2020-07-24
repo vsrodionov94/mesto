@@ -128,24 +128,22 @@ function renderModalAlbum(elem) {
   const photoOpened = elem.querySelector('.photo__image');
   const imageSrc = photoOpened.getAttribute('src');
   const imageAlt = photoOpened.getAttribute('alt');
-  const modalPhotoElement = document.querySelector('#photo-large').content.cloneNode(true);
-  const closeButton = modalPhotoElement.querySelector('.modal__esc-button');
-  modalPhotoElement.querySelector('.modal__image').setAttribute('src', imageSrc);
-  modalPhotoElement.querySelector('.modal__image').setAttribute('alt', imageAlt);
-  modalPhotoElement.querySelector('.modal__caption').textContent = imageAlt;
 
   photoOpened.addEventListener('click', () => {
-    modalAlbum.append(modalPhotoElement);
+    modalAlbum.innerHTML = `
+    <div class="modal__large-photo">
+      <img class="modal__image" src="${imageSrc}" alt="${imageAlt}">
+      <button class="modal__esc-button" type="button" aria-label="Закрыть"></button>
+      <p class="modal__caption">${imageAlt}</p>
+    </div>`
     toggleModal(modalAlbum);
-    console.log(modalPhotoElement)
-    console.log(imageSrc)
+    const closeButton = modalAlbum.querySelector('.modal__esc-button')
+    closeButton.addEventListener('click', () => {
+      toggleModal(modalAlbum);
+    })
   })
 
-  closeButton.addEventListener('click', () => {
-    const openedElem = event.target.closest('.modal__large-photo');
-    openedElem.remove();
-    toggleModal(modalAlbum);
-  })
+
 }
 
 window.onload = renderPhoto();
