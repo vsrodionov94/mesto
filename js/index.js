@@ -72,87 +72,89 @@ function submitModalEdit(event){
   toggleModal(modalEdit);
 }
 
-function newInitialCards() {initialCards.unshift({name: fieldTitle.value, link: fieldLink.value})}
-
-function clearCards() {
-  const cards = document.querySelectorAll('.photo__item');
-  cards.forEach((card) => {card.remove()});
+function appendPhotoCard(card) {
+    photo.append(card);
 }
 
-function addNewPhoto(event) {
-  event.preventDefault();
-  newInitialCards();
-  clearCards();
-  startPhoto();
-  clearFormAdd();
-  toggleModal(modalAdd);
+function preendPhotoCard(card) {
+  photo.prepend(card);
+
 }
 
-function addPhoto(elem) {
+function addPhoto(elem, funcAddCard) {
   const photoCardTemplate = document.querySelector('#photo-item').content;
   const photoCardElement = photoCardTemplate.cloneNode(true);
   photoCardElement.querySelector('.photo__image').setAttribute('src', elem.link);
   photoCardElement.querySelector('.photo__image').setAttribute('alt', elem.name);
   photoCardElement.querySelector('.photo__text').textContent = elem.name;
-  photo.append(photoCardElement);
+  toggleLike(photoCardElement);
+  deleteCard(photoCardElement)
+  setAttributeModalAlbum(photoCardElement)
+  funcAddCard(photoCardElement);
 }
 
+function newInitialCards() {initialCards.push({name: fieldTitle.value, link: fieldLink.value})}
 
+function addNewPhoto(event) {
+  event.preventDefault();
+  newInitialCards();
+  addPhoto(initialCards[initialCards.length - 1], preendPhotoCard);
+  clearFormAdd();
+  toggleModal(modalAdd);
+}
 
 function startPhoto() {
   initialCards.forEach((card) => {
-    addPhoto(card);
-})}
-
-function toggleLike() {
-  photo.onclick = function (event) {
-    if (!event.target.classList.contains('photo__like-button')) return;
-    let likeButton = event.target.closest('.photo__like-button');
-    likeButton.classList.toggle('photo__like-button_active');
-  };
+    addPhoto(card, appendPhotoCard);
+  })
 }
 
-function deleteCard() {
-  photos.onclick = function(event) {
-    if (!event.target.classList.contains('photo__delete-button')) return;
-    let photoCard = event.target.closest('.photo__item');
+function toggleLike(elem) {
+  const likeButton = elem.querySelector('.photo__like-button');
+  likeButton.addEventListener('click', function (evt) {
+    evt.target.classList.toggle('photo__like-button_active');
+  })
+}
+
+function deleteCard(elem) {
+  const deleteButton = elem.querySelector('.photo__delete-button');
+  const photoCard = elem.querySelector('.photo__item');
+  deleteButton.addEventListener('click', function (evt) {
     photoCard.remove();
-  }
+  })
 }
 
-function openPhoto() {
-  document.onclick = function(event) {
-    if (!event.target.classList.contains('photo__image')) return;
-    const photoOpened = event.target.closest('.photo__image');
-    const imageSrc = photoOpened.getAttribute('src');
-    const imageAlt = photoOpened.getAttribute('alt');
-    const modalPhotoTemplate = document.querySelector('#photo-large').content;
-    const modalPhotoElement = modalPhotoTemplate.cloneNode(true);
-    modalPhotoElement.querySelector('.modal__image').setAttribute('src', imageSrc);
-    modalPhotoElement.querySelector('.modal__image').setAttribute('alt', imageAlt);
-    modalPhotoElement.querySelector('.modal__caption').textContent = imageAlt;
-    modalAlbum.append(modalPhotoElement);
-    toggleModal(modalAlbum);
-    closeModalAlbum();
-
-  }
+function setAttributeModalAlbum(elem) {
+  const photoOpened = elem.querySelector('.photo__image');
+  const imageSrc = photoOpened.getAttribute('src');
+  const imageAlt = photoOpened.getAttribute('alt');
+  const modalPhotoTemplate = document.querySelector('#photo-large').content;
+  const modalPhotoElement = modalPhotoTemplate.cloneNode(true);
+  const closeButton = modalPhotoElement.querySelector('.modal__esc-button');
+  const modalLargePhoto = modalPhotoElement.querySelector('.modal__large-photo');
+  modalPhotoElement.querySelector('.modal__image').setAttribute('src', imageSrc);
+  modalPhotoElement.querySelector('.modal__image').setAttribute('alt', imageAlt);
+  modalPhotoElement.querySelector('.modal__caption').textContent = imageAlt;
+  openModalAlbum(photoOpened, modalPhotoElement);
+  closeModalAlbum(closeButton, modalLargePhoto);
 }
 
-function closeModalAlbum() {
-  modalAlbum.onclick = function(event) {
-    if (!event.target.classList.contains('modal__esc-button')) return;
+function openModalAlbum(elemOpen, elemAppend) {
+  elemOpen.addEventListener('click', function (evt) {
+    modalAlbum.append(elemAppend);
     toggleModal(modalAlbum);
-    const modalLargePhoto = document.querySelector('.modal__large-photo')
-    modalLargePhoto.remove()
-  }
+
+  })
+}
+
+function closeModalAlbum(elemBtn, modalElem) {
+  elemBtn.addEventListener('click', function (evt) {
+    modalElem.remove()
+    toggleModal(modalAlbum);
+  })
 }
 
 window.onload = startPhoto();
-
-toggleLike();
-deleteCard();
-openPhoto();
-
 
 editButton.addEventListener('click', function(){
   toggleModal(modalEdit);
@@ -175,4 +177,5 @@ escButtonModalAdd.addEventListener('click', function(){
 });
 
 formAdd.addEventListener('submit', addNewPhoto);
+
 
