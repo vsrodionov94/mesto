@@ -25,8 +25,6 @@ const modalAlbumImage = modalAlbum.querySelector('.modal__image');
 const escButtonModalAlbum = modalAlbum.querySelector('.modal__esc-button');
 const modalAlbumCaption = modalAlbum.querySelector('.modal__caption');
 
-
-
 const initialCards = [
   {
     name: 'Архыз',
@@ -56,7 +54,6 @@ const initialCards = [
 
 function toggleModal(modalName) {
   modalName.classList.toggle('modal_opened');
-
 }
 
 function fillModalEdit() {
@@ -76,7 +73,7 @@ function submitModalEdit(event){
   toggleModal(modalEdit);
 }
 
-function addCard(elem) {
+function getCard(data) {
   const photoCardTemplate = document.querySelector('#photo-item').content;
   const photoCardElement = photoCardTemplate.cloneNode(true);
   const photoCardElementImage = photoCardElement.querySelector('.photo__image');
@@ -85,36 +82,39 @@ function addCard(elem) {
   const deleteButton = photoCardElement.querySelector('.photo__delete-button');
   const photoCard = photoCardElement.querySelector('.photo__item');
 
-  photoCardElementImage.setAttribute('src', elem.link);
-  photoCardElementImage.setAttribute('alt', elem.name);
-  photoCardElementCaption.textContent = elem.name;
+  photoCardElementImage.setAttribute('src', data.link);
+  photoCardElementImage.setAttribute('alt', data.name);
+  photoCardElementCaption.textContent = data.name;
 
   likeButton.addEventListener('click', () => {event.target.classList.toggle('photo__like-button_active')})
   deleteButton.addEventListener('click', () => {photoCard.remove()})
   photoCardElementImage.addEventListener('click', () => {
-    modalAlbumImage.setAttribute('src', elem.link);
-    modalAlbumImage.setAttribute('alt', elem.name);
-    modalAlbumCaption.textContent = elem.name;
+    modalAlbumImage.setAttribute('src', data.link);
+    modalAlbumImage.setAttribute('alt', data.name);
+    modalAlbumCaption.textContent = data.name;
     toggleModal(modalAlbum);
   })
-
-  return targetCard = photoCardElement;
+  return photoCardElement
 }
 
-function renderNewCard(event) {
+function getNewCard() {
+  const newCard = getCard({
+    name: fieldTitle.value,
+    link: fieldLink.value
+  });
+  return newCard;
+}
+
+function renderNewCardToBegin(event) {
   event.preventDefault();
-  const newCard = {name: fieldTitle.value, link: fieldLink.value};
-  addCard(newCard);
-  photoCards.prepend(targetCard);
+  photoCards.prepend(getNewCard());
   clearFormAdd();
   toggleModal(modalAdd);
 }
 
 function renderAllCard() {
-  initialCards.forEach( card => {
-    addCard(card);
-    photoCards.append(targetCard);
-  })
+  const cards = initialCards.map( el => getCard(el));
+  photoCards.append(... cards);
 }
 
 window.onload = renderAllCard();
@@ -139,7 +139,7 @@ escButtonModalAdd.addEventListener('click', function(){
   clearFormAdd();
 });
 
-formAdd.addEventListener('submit', renderNewCard);
+formAdd.addEventListener('submit', renderNewCardToBegin);
 
 escButtonModalAlbum.addEventListener('click', () => {
   toggleModal(modalAlbum);
