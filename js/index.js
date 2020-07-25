@@ -17,8 +17,8 @@ const fieldTitle = modalAdd.querySelector('.modal__field_assign_title');
 const fieldLink = modalAdd.querySelector('.modal__field_assign_link');
 const formAdd = modalAdd.querySelector('.modal__container');
 
-const photos = document.querySelector('.photos');
-const photo = photos.querySelector('.photo');
+const photo = document.querySelector('.photo');
+const photoCards = photo.querySelector('.photo__cards');
 
 const modalAlbum = document.querySelector('.modal_assign_album');
 const modalAlbumImage = modalAlbum.querySelector('.modal__image');
@@ -103,9 +103,9 @@ function addCard(elem) {
 
 function renderNewCard(event) {
   event.preventDefault();
-  const newCard = {name: fieldTitle.value, link: fieldLink.value}
+  const newCard = {name: fieldTitle.value, link: fieldLink.value};
   addCard(newCard);
-  photo.prepend(targetCard);
+  photoCards.prepend(targetCard);
   clearFormAdd();
   toggleModal(modalAdd);
 }
@@ -113,7 +113,7 @@ function renderNewCard(event) {
 function renderAllCard() {
   initialCards.forEach( card => {
     addCard(card);
-    photo.append(targetCard);
+    photoCards.append(targetCard);
   })
 }
 

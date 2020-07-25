@@ -5,16 +5,13 @@
 @import url('./__like-button/photo__like-button.css');
 @import url('./__like-button/_active/photo__like-button_active.css');
 @import url('./__delete-button/photo__delete-button.css');
-
-
+@import url('./__cards/photo__cards.css');
 
 .photo {
+  max-width: 882px;
   margin: 0 auto;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(282px, 282px));
-  grid-column-gap: 18px;
-  grid-row-gap:  21px;
+  padding-top: 51px;
+  display: flex;
   justify-content: center;
-
 }
+

@@ -23,10 +23,10 @@
         </div>
         <button class="profile__add-button" type="button" aria-label="Добавить"></button>
       </section>
-      <section class="photos">
-        <div class="photo">
+      <section class="photo">
+        <ul class="photo__cards">
 
-        </div>
+        </ul>
       </section>
       <section class="modal modal_assign_form-eidt">
         <form class="modal__container" name="edit-form">
@@ -59,14 +59,14 @@
     </footer>
   </div>
   <template id="photo-item">
-    <div class="photo__item">
+    <li class="photo__item">
       <button class="photo__delete-button" type="button"></button>
       <img class="photo__image" src="" alt="">
       <div class="photo__caption">
         <h2 class="photo__text"></h2>
         <button class="photo__like-button" type="button"></button>
       </div>
-    </div>
+    </li>
   </template>
 
   <script src="./js/index.js"></script>
