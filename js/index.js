@@ -105,9 +105,13 @@ function getNewCard() {
   return newCard;
 }
 
+function prependNewCard(card){
+  photoCards.prepend(card);
+}
+
 function renderNewCardToBegin(event) {
   event.preventDefault();
-  photoCards.prepend(getNewCard());
+  prependNewCard(getNewCard());
   clearFormAdd();
   toggleModal(modalAdd);
 }
