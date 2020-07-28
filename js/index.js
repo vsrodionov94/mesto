@@ -73,7 +73,7 @@ function submitModalEdit(event){
   toggleModal(modalEdit);
 }
 
-function getCard(data) {
+function createCard(data) {
   const photoCardTemplate = document.querySelector('#photo-item').content;
   const photoCardElement = photoCardTemplate.cloneNode(true);
   const photoCardElementImage = photoCardElement.querySelector('.photo__image');
@@ -94,10 +94,10 @@ function getCard(data) {
     modalAlbumCaption.textContent = data.name;
     toggleModal(modalAlbum);
   })
-  return photoCardElement
+  return photoCardElement;
 }
 
-function getNewCard() {
+function createNewCard() {
   const newCard = getCard({
     name: fieldTitle.value,
     link: fieldLink.value
@@ -123,22 +123,22 @@ function renderAllCard() {
 
 window.onload = renderAllCard();
 
-editButton.addEventListener('click', function(){
+editButton.addEventListener('click', function() {
   toggleModal(modalEdit);
   fillModalEdit();
 });
 
-escButtonModalEdit.addEventListener('click', function(){
+escButtonModalEdit.addEventListener('click', function() {
   toggleModal(modalEdit);
 });
 
 formProfile.addEventListener('submit', submitModalEdit);
 
-addButton.addEventListener('click', function(){
+addButton.addEventListener('click', function() {
   toggleModal(modalAdd);
 });
 
-escButtonModalAdd.addEventListener('click', function(){
+escButtonModalAdd.addEventListener('click', function() {
   toggleModal(modalAdd);
   clearFormAdd();
 });
