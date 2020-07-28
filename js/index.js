@@ -98,7 +98,7 @@ function createCard(data) {
 }
 
 function createNewCard() {
-  const newCard = getCard({
+  const newCard = createCard({
     name: fieldTitle.value,
     link: fieldLink.value
   });
@@ -111,13 +111,13 @@ function prependNewCard(card){
 
 function renderNewCardToBegin(event) {
   event.preventDefault();
-  prependNewCard(getNewCard());
+  prependNewCard(createNewCard());
   clearFormAdd();
   toggleModal(modalAdd);
 }
 
 function renderAllCard() {
-  const cards = initialCards.map( el => getCard(el));
+  const cards = initialCards.map( el => createCard(el));
   photoCards.append(... cards);
 }
 
