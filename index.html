@@ -28,19 +28,27 @@
         </ul>
       </section>
       <section class="modal modal_assign_form-eidt">
-        <form class="modal__container" name="edit-form">
+        <form class="modal__container" name="edit-form" novalidate>
           <h3 class="modal__title">Редактировать профиль</h3>
-          <input type="text" class="modal__field modal__field_assign_name" placeholder="Введите имя" name="field-name" required>
-          <input type="text" class="modal__field modal__field_assign_profession" placeholder="Введите профессию" name="field-profession" required>
+          <input type="text" class="modal__field modal__field_assign_name" placeholder="Введите имя"
+          name="field-name" required minlength="2" maxlength="40">
+          <span class='modal__field-error' id='field-name-error'></span>
+          <input type="text" class="modal__field modal__field_assign_profession" placeholder="Введите профессию"
+          name="field-profession" required minlength="2" maxlength="200">
+          <span class='modal__field-error' id='field-profession-error'></span>
           <button type="submit" class="modal__submit-button">Сохранить</button>
           <button class="modal__esc-button" type="button" aria-label="Закрыть"></button>
         </form>
       </section>
       <section class="modal modal_assign_form-add">
-          <form class="modal__container" name="edit-form">
+          <form class="modal__container" name="edit-form" novalidate>
             <h3 class="modal__title">Новое место</h3>
-            <input type="text" class="modal__field modal__field_assign_title" placeholder="Название" name="field-title" required>
-            <input type="text" class="modal__field modal__field_assign_link" placeholder="Ссылка на картинку" name="field-link" required>
+            <input type="text" class="modal__field modal__field_assign_title" placeholder="Название"
+            name="field-title" required maxlength="1" minlength="30">
+            <span class='modal__field-error' id='field-title-error'></span>
+            <input type="text" class="modal__field modal__field_assign_link" placeholder="Ссылка на картинку"
+            name="field-link" required type="url">
+            <span class='modal__field-error' id='field-link-error'></span>
             <button type="submit" class="modal__submit-button">Сохранить</button>
             <button class="modal__esc-button" type="button" aria-label="Закрыть"></button>
           </form>

@@ -121,6 +121,23 @@ function renderAllCard() {
   photoCards.append(... cards);
 }
 
+function hendlerModalMissClick(modal) {
+  modal.addEventListener('click', (event) => {
+    if(event.target.classList.contains('modal')){
+      toggleModal(modal);
+    }
+  })
+}
+
+function hendlerModalEscKey(modal) {
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      if (modal.classList.contains('modal_opened')) {
+        toggleModal(modal);
+      }
+    }
+  })
+}
 window.onload = renderAllCard();
 
 editButton.addEventListener('click', function() {
@@ -147,4 +164,12 @@ formAdd.addEventListener('submit', renderNewCardToBegin);
 
 escButtonModalAlbum.addEventListener('click', () => {
   toggleModal(modalAlbum);
-})
+});
+
+hendlerModalMissClick(modalEdit);
+hendlerModalMissClick(modalAdd);
+hendlerModalMissClick(modalAlbum);
+
+hendlerModalEscKey(modalEdit);
+hendlerModalEscKey(modalAdd);
+hendlerModalEscKey(modalAlbum);
