@@ -9,13 +9,13 @@ const modalEdit = document.querySelector('.modal_assign_form-eidt');
 const escButtonModalEdit = modalEdit.querySelector('.modal__esc-button');
 const fieldName = modalEdit.querySelector('.modal__field_assign_name');
 const fieldProfession = modalEdit.querySelector('.modal__field_assign_profession');
-const formProfile = modalEdit.querySelector('.modal__container');
+const formProfile = modalEdit.querySelector('.modal__form');
 
 const modalAdd = document.querySelector('.modal_assign_form-add');
 const escButtonModalAdd = modalAdd.querySelector('.modal__esc-button');
 const fieldTitle = modalAdd.querySelector('.modal__field_assign_title');
 const fieldLink = modalAdd.querySelector('.modal__field_assign_link');
-const formAdd = modalAdd.querySelector('.modal__container');
+const formAdd = modalAdd.querySelector('.modal__form');
 
 const photo = document.querySelector('.photo');
 const photoCards = photo.querySelector('.photo__cards');
@@ -173,3 +173,4 @@ hendlerModalMissClick(modalAlbum);
 hendlerModalEscKey(modalEdit);
 hendlerModalEscKey(modalAdd);
 hendlerModalEscKey(modalAlbum);
+

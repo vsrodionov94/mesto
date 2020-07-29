@@ -1,6 +1,15 @@
 .modal__field-error {
+  display: none;
+  width: 358px;
   font-weight: normal;
   font-size: 12px;
   line-height: 15px;
   color: #FF0000;
+  margin-top: -20px;
+}
+
+@media screen and (max-width: 570px) {
+  .modal__field-error {
+    width: 200px;
+  }
 }
