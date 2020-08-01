@@ -19,6 +19,7 @@ const formAdd = modalAdd.querySelector('.modal__form');
 
 const photo = document.querySelector('.photo');
 const photoCards = photo.querySelector('.photo__cards');
+const photoCardTemplate = document.querySelector('#photo-item').content;
 
 const modalAlbum = document.querySelector('.modal_assign_album');
 const modalAlbumImage = modalAlbum.querySelector('.modal__image');
@@ -74,7 +75,6 @@ function submitModalEdit(event){
 }
 
 function createCard(data) {
-  const photoCardTemplate = document.querySelector('#photo-item').content;
   const photoCardElement = photoCardTemplate.cloneNode(true);
   const photoCardElementImage = photoCardElement.querySelector('.photo__image');
   const photoCardElementCaption = photoCardElement.querySelector('.photo__text');
