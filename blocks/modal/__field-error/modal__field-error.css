@@ -11,5 +11,6 @@
 @media screen and (max-width: 570px) {
   .modal__field-error {
     width: 200px;
+    margin-top: -15px;
   }
 }
