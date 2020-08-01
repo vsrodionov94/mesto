@@ -1,4 +1,3 @@
-
 const profile = document.querySelector('.profile');
 const editButton = profile.querySelector('.profile__edit-button');
 const name = profile.querySelector('.profile__name-text');
@@ -54,6 +53,20 @@ const initialCards = [
 ];
 
 function toggleModal(modalName) {
+  const isOpen = modalName.classList.contains('modal_opened');
+  if (isOpen) {
+    document.removeEventListener('keydown', (event) =>{
+      if (event.key === 'Escape'){
+        modalName.classList.remove('modal_opened');
+      }
+    })
+  } else {
+    document.addEventListener('keydown', (event) =>{
+      if (event.key === 'Escape'){
+        modalName.classList.remove('modal_opened');
+      }
+    })
+  }
   modalName.classList.toggle('modal_opened');
 }
 
@@ -93,7 +106,6 @@ function createCard(data) {
     modalAlbumImage.setAttribute('alt', data.name);
     modalAlbumCaption.textContent = data.name;
     toggleModal(modalAlbum);
-    handlerModalEscKey(modalAlbum);
   })
   return photoCardElement;
 }
@@ -122,74 +134,42 @@ function renderAllCard() {
   photoCards.append(... cards);
 }
 
-function handlerModalMissClick(modal) {
-  modal.addEventListener('click', (event) => {
+function handlerModalMissClick(modalName) {
+  modalName.addEventListener('click', (event) => {
     if(event.target.classList.contains('modal')){
-      toggleModal(modal);
+      toggleModal(modalName);
     }
   })
 }
-
-function handlerModalEscKey(modal) {
-  document.addEventListener('keydown', (event) => {
-    toggleModalIfPressEscKey(event, modal);
-  })}
-
-function toggleModalIfPressEscKey(event, modal) {
-  if (event.key === 'Escape') {
-    if (modal.classList.contains('modal_opened')) {
-      toggleModal(modal);
-      document.removeEventListener('keydown', (event) => {
-        toggleModalIfPressEscKey(event, modal);
-      })
-    }
-  }
-}
-
-
 
 window.onload = renderAllCard();
 
 editButton.addEventListener('click', function() {
   toggleModal(modalEdit);
   fillModalEdit();
-  handlerModalEscKey(modalEdit);
 });
 
 escButtonModalEdit.addEventListener('click', function() {
   toggleModal(modalEdit);
-  document.removeEventListener('keydown', (event) => {
-    toggleModalIfPressEscKey(event, modal);
-  })
 });
 
 formProfile.addEventListener('submit', function () {
   submitModalEdit(event);
-  document.removeEventListener('keydown', (event) => {
-    toggleModalIfPressEscKey(event, modal);
-  })
 });
 
 addButton.addEventListener('click', function() {
   toggleModal(modalAdd);
-  handlerModalEscKey(modalAdd);
 });
 
 escButtonModalAdd.addEventListener('click', function() {
   toggleModal(modalAdd);
   clearFormAdd();
-  document.removeEventListener('keydown', (event) => {
-    toggleModalIfPressEscKey(event, modal);
-  })
 });
 
 formAdd.addEventListener('submit', renderNewCardToBegin);
 
 escButtonModalAlbum.addEventListener('click', () => {
   toggleModal(modalAlbum);
-  document.removeEventListener('keydown', (event) => {
-    toggleModalIfPressEscKey(event, modal);
-  })
 });
 
 handlerModalMissClick(modalEdit);
