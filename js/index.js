@@ -16,14 +16,88 @@ const fieldTitle = modalAdd.querySelector('.modal__field_assign_title');
 const fieldLink = modalAdd.querySelector('.modal__field_assign_link');
 const formAdd = modalAdd.querySelector('.modal__form');
 
-const photo = document.querySelector('.photo');
-const photoCards = photo.querySelector('.photo__cards');
-const photoCardTemplate = document.querySelector('#photo-item').content;
+
 
 const modalAlbum = document.querySelector('.modal_assign_album');
 const modalAlbumImage = modalAlbum.querySelector('.modal__image');
 const escButtonModalAlbum = modalAlbum.querySelector('.modal__esc-button');
 const modalAlbumCaption = modalAlbum.querySelector('.modal__caption');
+
+
+const photo = document.querySelector('.photo');
+const photoCards = photo.querySelector('.photo__cards');
+const photoCardTemplate = document.querySelector('#photo-item').content;
+
+
+
+
+class Card {
+  constructor ({name, link}) {
+    this._name = name,
+    this._link = link
+  }
+
+  _getTemplate() {
+    const photoCardElement = photoCardTemplate.cloneNode(true);
+    return photoCardElement;
+  }
+
+  _handleOpenModalAlbum(){
+    modalAlbumImage.setAttribute('src', this._link);
+    modalAlbumImage.setAttribute('alt', this._name);
+    modalAlbumCaption.textContent = this._name;
+    modalAlbum.classList.add('modal_opened');
+
+  }
+  _handleCloseModalAlbum(){
+    modalAlbumImage.setAttribute('src', '');
+    modalAlbumImage.setAttribute('alt', '');
+    modalAlbumCaption.textContent = '';
+    modalAlbum.classList.remove('modal_opened');
+
+  }
+
+  _handleDeleteCard(){
+    this._photoCard.remove();
+  }
+
+  _handleLike(){
+    event.target.classList.toggle('photo__like-button_active');
+  }
+
+  _setEventListeners(){
+    this._likeButton.addEventListener('click', (event) => {
+      this._handleLike(event);
+    })
+
+    this._deleteButton.addEventListener('click', () => {
+      this._handleDeleteCard();
+    })
+
+    this._photoCardElementImage.addEventListener('click', () => {
+      this._handleOpenModalAlbum();
+    })
+
+    escButtonModalAlbum.addEventListener('click', () => {
+      this._handleCloseModalAlbum();
+    })
+  }
+
+  generateCard(){
+    this._photoCardElement = this._getTemplate();
+    this._photoCardElementImage = this._photoCardElement.querySelector('.photo__image')
+    this._photoCardElementImage.setAttribute('src', this._link);
+    this._photoCardElementImage.setAttribute('alt', this._name);
+    this._photoCardElement.querySelector('.photo__text').textContent = this._name;;
+    this._likeButton = this._photoCardElement.querySelector('.photo__like-button');
+    this._deleteButton = this._photoCardElement.querySelector('.photo__delete-button');
+    this._photoCard = this._photoCardElement.querySelector('.photo__item');
+
+    this._setEventListeners();
+    return this._photoCardElement
+
+  }
+}
 
 const initialCards = [
   {
@@ -87,35 +161,15 @@ function submitModalEdit(event){
   toggleModal(modalEdit);
 }
 
-function createCard(data) {
-  const photoCardElement = photoCardTemplate.cloneNode(true);
-  const photoCardElementImage = photoCardElement.querySelector('.photo__image');
-  const photoCardElementCaption = photoCardElement.querySelector('.photo__text');
-  const likeButton = photoCardElement.querySelector('.photo__like-button');
-  const deleteButton = photoCardElement.querySelector('.photo__delete-button');
-  const photoCard = photoCardElement.querySelector('.photo__item');
-
-  photoCardElementImage.setAttribute('src', data.link);
-  photoCardElementImage.setAttribute('alt', data.name);
-  photoCardElementCaption.textContent = data.name;
-
-  likeButton.addEventListener('click', () => {event.target.classList.toggle('photo__like-button_active')})
-  deleteButton.addEventListener('click', () => {photoCard.remove()})
-  photoCardElementImage.addEventListener('click', () => {
-    modalAlbumImage.setAttribute('src', data.link);
-    modalAlbumImage.setAttribute('alt', data.name);
-    modalAlbumCaption.textContent = data.name;
-    toggleModal(modalAlbum);
-  })
-  return photoCardElement;
-}
 
 function createNewCard() {
-  const newCard = createCard({
+  const newCard = new Card({
     name: fieldTitle.value,
     link: fieldLink.value
   });
-  return newCard;
+    cardNew = newCard.generateCard();
+
+  return cardNew;
 }
 
 function prependNewCard(card){
@@ -130,9 +184,13 @@ function renderNewCardToBegin(event) {
 }
 
 function renderAllCard() {
-  const cards = initialCards.map( el => createCard(el));
-  photoCards.append(... cards);
-}
+  initialCards.forEach( (item) => {
+    const card = new Card(item)
+    const cardElement = card.generateCard();
+    photoCards.append(cardElement)
+    });
+
+  };
 
 function handlerModalMissClick(modalName) {
   modalName.addEventListener('click', (event) => {
@@ -168,9 +226,7 @@ escButtonModalAdd.addEventListener('click', function() {
 
 formAdd.addEventListener('submit', renderNewCardToBegin);
 
-escButtonModalAlbum.addEventListener('click', () => {
-  toggleModal(modalAlbum);
-});
+
 
 handlerModalMissClick(modalEdit);
 handlerModalMissClick(modalAdd);
