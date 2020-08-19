@@ -46,15 +46,14 @@ class Card {
     modalAlbumImage.setAttribute('src', this._link);
     modalAlbumImage.setAttribute('alt', this._name);
     modalAlbumCaption.textContent = this._name;
-    modalAlbum.classList.add('modal_opened');
+    toggleModal(modalAlbum);
 
   }
   _handleCloseModalAlbum(){
     modalAlbumImage.setAttribute('src', '');
     modalAlbumImage.setAttribute('alt', '');
     modalAlbumCaption.textContent = '';
-    modalAlbum.classList.remove('modal_opened');
-
+    toggleModal(modalAlbum);
   }
 
   _handleDeleteCard(){
