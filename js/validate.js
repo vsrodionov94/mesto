@@ -67,3 +67,21 @@ enableValidation({
   errorClass: 'modal__field-error_active'
 })
 
+class FormValidator {
+  constructor (data, formElement) {
+    this._formSelector = data.formSelector;
+    this._inputSelector = data.formSelector;
+    this._submitButtonSelector = data.submitButtonSelector;
+    this._inactiveButtonClass = data.inactiveButtonClass;
+    this._inputErrorClass = data.inputErrorClass;
+    this._errorClass = data.errorClass;
+    this._formElement = formElement;
+  }
+
+
+
+
+
+
+
+}
