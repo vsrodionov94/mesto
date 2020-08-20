@@ -1,4 +1,4 @@
-class FormValidator {
+export class FormValidator {
   constructor (data, formElement) {
     this._inputSelector = data.inputSelector;
     this._submitButtonSelector = data.submitButtonSelector;
@@ -66,17 +66,3 @@ class FormValidator {
   }
 }
 
-const data = {
-  formSelector: '.modal__form',
-  inputSelector: '.modal__field',
-  submitButtonSelector: '.modal__submit-button',
-  inactiveButtonClass: 'modal__submit-button_disabled',
-  inputErrorClass: 'modal__field_type_errorr',
-  errorClass: 'modal__field-error_active'
-}
-
-const formList = Array.from(document.querySelectorAll('.modal__form'));
-formList.forEach(formElement => {
-  const validForm = new FormValidator(data, formElement);
-  validForm.enableValidation()
-})
