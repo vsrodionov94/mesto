@@ -17,7 +17,6 @@ import {
   escButtonModalAlbum,
   photoCards,
   initialCards,
-  formList,
   formData
 } from './constants.js';
 
@@ -80,12 +79,13 @@ function handlerModalMissClick(modalName) {
   })
 }
 
-renderAllCard(initialCards);
-
 function startValid (formName) {
   const validForm = new FormValidator(formData, formName);
   validForm.enableValidation()
 };
+
+renderAllCard(initialCards);
+
 
 editButton.addEventListener('click', function() {
   toggleModal(modalEdit);

@@ -51,8 +51,6 @@ export const initialCards = [
   }
 ];
 
-export const formList = Array.from(document.querySelectorAll('.modal__form'));
-
 export const formData = {
   formSelector: '.modal__form',
   inputSelector: '.modal__field',
