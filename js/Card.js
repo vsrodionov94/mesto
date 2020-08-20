@@ -2,18 +2,20 @@ import {
   modalAlbum,
   modalAlbumImage,
   modalAlbumCaption,
-  photoCardTemplate
+
 } from './constants.js';
 
 import {toggleModal} from './utilites.js';
 
 export class Card {
-  constructor ({name, link}) {
+  constructor ({name, link}, templateSelector) {
     this._name = name,
-    this._link = link
+    this._link = link,
+    this._templateSelector = templateSelector
   }
 
   _getTemplate() {
+    const photoCardTemplate = document.querySelector(this._templateSelector).content;
     const photoCardElement = photoCardTemplate.cloneNode(true);
     return photoCardElement;
   }
@@ -28,6 +30,7 @@ export class Card {
 
   _handleDeleteCard(){
     this._photoCard.remove();
+    this._photoCard = null;
   }
 
   _handleLike(){

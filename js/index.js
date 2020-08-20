@@ -45,9 +45,9 @@ function submitModalEdit(event){
 function createNewCard() {
   const newCard = new Card({
     name: fieldTitle.value,
-    link: fieldLink.value
-  });
-    let cardNew = newCard.generateCard();
+    link: fieldLink.value,
+  }, '#photo-item');
+    const cardNew = newCard.generateCard();
 
   return cardNew;
 }
@@ -63,9 +63,9 @@ function renderNewCardToBegin(event) {
   toggleModal(modalAdd);
 }
 
-function renderAllCard() {
-  initialCards.forEach( (item) => {
-    const card = new Card(item)
+function renderAllCard(cardArr) {
+  cardArr.forEach( (item) => {
+    const card = new Card(item, '#photo-item')
     const cardElement = card.generateCard();
     photoCards.append(cardElement)
     });
@@ -80,7 +80,7 @@ function handlerModalMissClick(modalName) {
   })
 }
 
-window.onload = renderAllCard();
+renderAllCard(initialCards);
 
 formList.forEach(formElement => {
   const validForm = new FormValidator(formData, formElement);

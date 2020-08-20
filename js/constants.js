@@ -24,7 +24,6 @@ export const modalAlbumCaption = modalAlbum.querySelector('.modal__caption');
 
 const photo = document.querySelector('.photo');
 export const photoCards = photo.querySelector('.photo__cards');
-export const photoCardTemplate = document.querySelector('#photo-item').content;
 export const initialCards = [
   {
     name: 'Архыз',
