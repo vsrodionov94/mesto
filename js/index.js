@@ -82,14 +82,15 @@ function handlerModalMissClick(modalName) {
 
 renderAllCard(initialCards);
 
-formList.forEach(formElement => {
-  const validForm = new FormValidator(formData, formElement);
+function startValid (formName) {
+  const validForm = new FormValidator(formData, formName);
   validForm.enableValidation()
-})
+};
 
 editButton.addEventListener('click', function() {
   toggleModal(modalEdit);
   fillModalEdit();
+  startValid(formProfile);
 });
 
 escButtonModalEdit.addEventListener('click', function() {
@@ -102,6 +103,7 @@ formProfile.addEventListener('submit', function () {
 
 addButton.addEventListener('click', function() {
   toggleModal(modalAdd);
+  startValid(formAdd);
 });
 
 escButtonModalAdd.addEventListener('click', function() {
