@@ -15,7 +15,7 @@ import {
   formAdd,
   modalAlbum,
   escButtonModalAlbum,
-  photoCards,
+  photoContainerSelector,
   initialCards,
   formData
 } from './constants.js';
@@ -23,6 +23,7 @@ import {
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
 import {toggleModal} from './utilites.js';
+import {Section} from './Section.js';
 
 function fillModalEdit() {
   fieldName.value = name.textContent;
@@ -46,30 +47,16 @@ function createNewCard() {
     name: fieldTitle.value,
     link: fieldLink.value,
   }, '#photo-item');
-    const cardNew = newCard.generateCard();
-
-  return cardNew;
-}
-
-function prependNewCard(card){
-  photoCards.prepend(card);
+    const cardGenerated = newCard.generateCard();
+  return cardGenerated;
 }
 
 function renderNewCardToBegin(event) {
   event.preventDefault();
-  prependNewCard(createNewCard());
+  cardList.addItem(createNewCard());
   clearFormAdd();
   toggleModal(modalAdd);
 }
-
-function renderAllCard(cardArr) {
-  cardArr.forEach( (item) => {
-    const card = new Card(item, '#photo-item')
-    const cardElement = card.generateCard();
-    photoCards.append(cardElement)
-    });
-
-  };
 
 function handlerModalMissClick(modalName) {
   modalName.addEventListener('click', (event) => {
@@ -84,8 +71,19 @@ function startValid (formName) {
   validForm.enableValidation()
 };
 
-renderAllCard(initialCards);
+const cardList = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '#photo-item');
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+    },
+  },
+  photoContainerSelector
+);
 
+
+cardList.renderItems();
 
 editButton.addEventListener('click', function() {
   toggleModal(modalEdit);
