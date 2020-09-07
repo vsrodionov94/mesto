@@ -1,4 +1,4 @@
-const profile = document.querySelector('.profile');
+export const profile = document.querySelector('.profile');
 export const editButton = profile.querySelector('.profile__edit-button');
 export const name = profile.querySelector('.profile__name-text');
 export const profession = profile.querySelector('.profile__profession');
@@ -16,10 +16,10 @@ export const fieldTitle = modalAdd.querySelector('.modal__field_assign_title');
 export const fieldLink = modalAdd.querySelector('.modal__field_assign_link');
 export const formAdd = modalAdd.querySelector('.modal__form');
 
-export const modalAlbum = document.querySelector('.modal_assign_album');
-export const modalAlbumImage = modalAlbum.querySelector('.modal__image');
-export const escButtonModalAlbum = modalAlbum.querySelector('.modal__esc-button');
-export const modalAlbumCaption = modalAlbum.querySelector('.modal__caption');
+export const popupAlbum = document.querySelector('.modal_assign_album');
+export const popupAlbumImage = popupAlbum.querySelector('.modal__image');
+export const escButtonModalAlbum = popupAlbum.querySelector('.modal__esc-button');
+export const popupAlbumCaption = popupAlbum.querySelector('.modal__caption');
 
 export const photoContainerSelector = '.photo__cards';
 export const initialCards = [
