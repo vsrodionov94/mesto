@@ -5,33 +5,21 @@ export class Popup {
 
   open () {
     this._popup.classList.add('modal_opened');
+    document.addEventListener('keydown', (event) => this._handleEscClose(event))
   }
 
   close () {
     this._popup.classList.remove('modal_opened');
+    document.removeEventListener('keydown', (event) => this._handleEscClose(event))
   }
 
-  _handleEscClose () {
-    const isOpen = this._popup.classList.contains('modal_opened');
-    if (isOpen) {
+  _handleEscClose (event) {
+    if (event.key === 'Escape'){
       this._popup.classList.remove('modal_opened');
-      document.removeEventListener('keydown', (event) =>{
-        if (event.key === 'Escape'){
-          this._popup.classList.remove('modal_opened');
-        }
-      })
-    } else {
-      this._popup.classList.add('modal_opened');
-      document.addEventListener('keydown', (event) =>{
-        if (event.key === 'Escape'){
-          this._popup.classList.remove('modal_opened');
-        }
-      })
     }
-  }
+}
 
   setEventListeners() {
-    this._handleEscClose();
     const closePopupButton = this._popup.querySelector('.modal__esc-button');
     closePopupButton.addEventListener('click', () => {
       this.close();

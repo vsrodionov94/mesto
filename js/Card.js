@@ -1,15 +1,15 @@
 import {
-  modalAlbum,
-  modalAlbumImage,
-  modalAlbumCaption,
+  popupAlbum,
+  popupAlbumImage,
+  popupAlbumCaption,
 
 } from './constants.js';
 
 import {toggleModal} from './utilites.js';
 
 export class Card {
-  constructor ({name, link}, templateSelector) {
-    this._name = name,
+  constructor ({title, link}, templateSelector) {
+    this._name = title,
     this._link = link,
     this._templateSelector = templateSelector
   }
@@ -20,11 +20,11 @@ export class Card {
     return photoCardElement;
   }
 
-  _handleOpenModalAlbum(){
-    modalAlbumImage.setAttribute('src', this._link);
-    modalAlbumImage.setAttribute('alt', this._name);
-    modalAlbumCaption.textContent = this._name;
-    toggleModal(modalAlbum);
+  _handleOpenPopupAlbum(){
+    popupAlbumImage.setAttribute('src', this._link);
+    popupAlbumImage.setAttribute('alt', this._name);
+    popupAlbumCaption.textContent = this._name;
+    toggleModal(popupAlbum);
 
   }
 
@@ -47,7 +47,7 @@ export class Card {
     })
 
     this._photoCardElementImage.addEventListener('click', () => {
-      this._handleOpenModalAlbum();
+      this._handleOpenPopupAlbum();
     })
   }
 
