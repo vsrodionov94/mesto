@@ -17,6 +17,7 @@ export class PopupWithForm extends Popup {
   return this._formValues;
   }
 
+
   setEventListeners() {
     super.setEventListeners();
     this._popup.querySelector('form').addEventListener('submit', (evt) => {
@@ -29,8 +30,8 @@ export class PopupWithForm extends Popup {
   close(){
     super.close();
     this._inputList = this._popup.querySelectorAll('.modal__field');
-    this._inputList.forEach(input => {
-    input.value = '';
-  });
- }
+    // this._inputList.forEach(input => {
+    //   input.value = 'ya pochstil';
+    // });
+  }
 }

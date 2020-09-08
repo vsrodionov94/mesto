@@ -1,22 +1,13 @@
 import {
   editButton,
-  name,
-  profession,
   addButton,
   modalEdit,
-  escButtonModalEdit,
   fieldName,
   fieldProfession,
   formProfile,
   modalAdd,
-  escButtonModalAdd,
-  fieldTitle,
-  fieldLink,
   formAdd,
   popupAlbum,
-  popupAlbumImage,
-  popupAlbumCaption,
-  escButtonPopupAlbum,
   photoContainerSelector,
   initialCards,
   formData
@@ -30,21 +21,9 @@ import { PopupWithForm } from './PopupWithForm.js'
 import { UserInfo } from './UserInfo.js';
 import { PopupWithImage } from './PopupWithImage.js';
 
-function fillModalEdit() {
-  fieldName.value = name.textContent;
-  fieldProfession.value = profession.textContent;
-}
-
-function clearFormAdd() {
-  fieldTitle.value = '';
-  fieldLink.value = '';
-}
-
-function submitModalEdit(event){
-  event.preventDefault();
-  name.textContent = fieldName.value;
-  profession.textContent = fieldProfession.value;
-  toggleModal(modalEdit);
+function fillModalEdit(name, profession) {
+  fieldName.value = name;
+  fieldProfession.value = profession;
 }
 
 function handlerModalMissClick(modalName) {
@@ -61,8 +40,6 @@ function startValid (formName) {
 };
 
 const popupWithImage = new PopupWithImage('.modal_assign_album');
-
-
 
 const cardList = new Section({
   items: initialCards,
@@ -89,7 +66,8 @@ const userInfo = new UserInfo(
 const popupWithFormEdit = new PopupWithForm(
   '.modal_assign_form-eidt',
    (item) => {
-    userInfo.setUserInfo(item.name, item.profession);
+     console.log(item)
+     userInfo.setUserInfo(item.name, item.profession);
    }
 );
 
@@ -108,9 +86,12 @@ const popupWithFormAdd = new PopupWithForm(
 
 editButton.addEventListener('click', function() {
   popupWithFormEdit.open();
-  popupWithFormEdit.setEventListeners();
-  startValid(formProfile);
 
+  fillModalEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().profession);
+
+  startValid(formProfile);
+  popupWithFormEdit.setEventListeners();
+  ;
 });
 
 addButton.addEventListener('click', function() {
@@ -118,12 +99,6 @@ addButton.addEventListener('click', function() {
   popupWithFormAdd.setEventListeners();
   startValid(formAdd);
 });
-
-// escButtonModalAlbum.addEventListener('click', () => {
-//   toggleModal(modalAlbum);
-// })
-
-// formAdd.addEventListener('submit', renderNewCardToBegin);
 
 handlerModalMissClick(modalEdit);
 handlerModalMissClick(modalAdd);

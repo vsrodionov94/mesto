@@ -8,8 +8,8 @@ export class UserInfo {
 
   getUserInfo() {
     return {
-      name : profile.querySelector(this._nameSelector),
-      profession : profile.querySelector(this._professionSelector)
+      name : profile.querySelector(this._nameSelector).textContent,
+      profession : profile.querySelector(this._professionSelector).textContent
     }
   }
 
