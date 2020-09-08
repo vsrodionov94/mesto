@@ -8,10 +8,11 @@ import {
 import {toggleModal} from './utilites.js';
 
 export class Card {
-  constructor ({title, link}, templateSelector) {
+  constructor ({title, link}, templateSelector, handleCardClick) {
     this._name = title,
     this._link = link,
-    this._templateSelector = templateSelector
+    this._templateSelector = templateSelector,
+    this._handleCardClick = handleCardClick
   }
 
   _getTemplate() {
@@ -20,13 +21,11 @@ export class Card {
     return photoCardElement;
   }
 
-  _handleOpenPopupAlbum(){
-    popupAlbumImage.setAttribute('src', this._link);
-    popupAlbumImage.setAttribute('alt', this._name);
-    popupAlbumCaption.textContent = this._name;
-    toggleModal(popupAlbum);
+  // _handleOpenPopupAlbum(){
+  //
+  //   toggleModal(popupAlbum);
 
-  }
+  // }
 
   _handleDeleteCard(){
     this._photoCard.remove();
@@ -47,7 +46,7 @@ export class Card {
     })
 
     this._photoCardElementImage.addEventListener('click', () => {
-      this._handleOpenPopupAlbum();
+      this._handleCardClick();
     })
   }
 
