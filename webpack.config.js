@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: { main: './src/index.js' },
+    entry: { main: './src/js/index.js' },
     output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js'
@@ -22,7 +22,7 @@ module.exports = {
       // добавили правило для обработки файлов
       {
         // регулярное выражение, которое ищет все файлы с такими расширениями
-        test: /\.(png|svg|jpg|gif|woff2)$/,
+        test: /\.(png|svg|jpg|gif|woff2|woff)$/,
         // при обработке этих файлов нужно использовать file-loader
         loader: 'file-loader'
       },
@@ -37,11 +37,11 @@ module.exports = {
         // при обработке этих файлов нужно использовать
         // MiniCssExtractPlugin.loader и css-loader
         loader:  [
-          MiniCssExtractPlugin.loader, 
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: { importLoader: 1 }
-          }, 
+
+          },
           'postcss-loader'
         ]
       }
