@@ -1,11 +1,11 @@
 import {
   editButton,
   addButton,
-  modalEdit,
+  popupEdit,
   fieldName,
   fieldProfession,
   formProfile,
-  modalAdd,
+  popupAdd,
   formAdd,
   popupAlbum,
   photoContainerSelector,
@@ -21,15 +21,15 @@ import { PopupWithForm } from './PopupWithForm.js'
 import { UserInfo } from './UserInfo.js';
 import { PopupWithImage } from './PopupWithImage.js';
 
-function fillModalEdit(name, profession) {
+function fillPopupEdit(name, profession) {
   fieldName.value = name;
   fieldProfession.value = profession;
 }
 
-function handlerModalMissClick(modalName) {
-  modalName.addEventListener('click', (event) => {
+function handlerPopupMissClick(popupName) {
+  popupName.addEventListener('click', (event) => {
     if(event.target.classList.contains('modal')){
-      toggleModal(modalName);
+      toggleModal(popupName);
     }
   })
 }
@@ -88,7 +88,7 @@ popupWithFormEdit.setEventListeners();
 
 editButton.addEventListener('click', function() {
   popupWithFormEdit.open();
-  fillModalEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().profession);
+  fillPopupEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().profession);
   startValid(formProfile);
 });
 
@@ -99,9 +99,9 @@ addButton.addEventListener('click', function() {
   startValid(formAdd);
 });
 
-handlerModalMissClick(modalEdit);
-handlerModalMissClick(modalAdd);
-handlerModalMissClick(popupAlbum);
+handlerPopupMissClick(popupEdit);
+handlerPopupMissClick(popupAdd);
+handlerPopupMissClick(popupAlbum);
 
 
 

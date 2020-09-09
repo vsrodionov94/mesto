@@ -29,7 +29,6 @@ export class PopupWithForm extends Popup {
   close(){
     super.close();
     this._inputList = this._popup.querySelectorAll('.modal__field');
-    console.log('ya rabotayu')
     this._inputList.forEach(input => {
       input.value = '';
     });
