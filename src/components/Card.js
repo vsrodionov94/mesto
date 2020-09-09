@@ -1,11 +1,3 @@
-import {
-  popupAlbum,
-  popupAlbumImage,
-  popupAlbumCaption,
-
-} from './constants.js';
-
-import {toggleModal} from './utilites.js';
 
 export class Card {
   constructor ({title, link}, templateSelector, handleCardClick) {
@@ -21,19 +13,13 @@ export class Card {
     return photoCardElement;
   }
 
-  // _handleOpenPopupAlbum(){
-  //
-  //   toggleModal(popupAlbum);
-
-  // }
-
   _handleDeleteCard(){
     this._photoCard.remove();
     this._photoCard = null;
   }
 
   _handleLike(){
-    event.target.classList.toggle('photo__like-button_active');
+    this._likeButton.classList.toggle('photo__like-button_active');
   }
 
   _setEventListeners(){

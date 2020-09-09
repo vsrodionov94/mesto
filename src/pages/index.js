@@ -1,4 +1,4 @@
-import '../pages/index.css';
+import './index.css';
 
 import {
   editButton,
@@ -13,28 +13,27 @@ import {
   photoContainerSelector,
   initialCards,
   formData
-} from './constants.js';
+} from '../utils/constants.js';
 
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import { toggleModal } from './utilites.js';
-import { Section } from './Section.js';
-import { PopupWithForm } from './PopupWithForm.js'
-import { UserInfo } from './UserInfo.js';
-import { PopupWithImage } from './PopupWithImage.js';
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { Section } from '../components/Section.js';
+import { PopupWithForm } from '../components/PopupWithForm.js'
+import { UserInfo } from '../components/UserInfo.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
 
 function fillPopupEdit(name, profession) {
   fieldName.value = name;
   fieldProfession.value = profession;
 }
 
-function handlerPopupMissClick(popupName) {
-  popupName.addEventListener('click', (event) => {
-    if(event.target.classList.contains('modal')){
-      toggleModal(popupName);
-    }
-  })
-}
+// function handlerPopupMissClick(popupName) {
+//   popupName.addEventListener('click', (event) => {
+//     if(event.target.classList.contains('modal')){
+//       toggleModal(popupName);
+//     }
+//   })
+// }
 
 function startValid (formName) {
   const validForm = new FormValidator(formData, formName);
@@ -101,9 +100,9 @@ addButton.addEventListener('click', function() {
   startValid(formAdd);
 });
 
-handlerPopupMissClick(popupEdit);
-handlerPopupMissClick(popupAdd);
-handlerPopupMissClick(popupAlbum);
+// handlerPopupMissClick(popupEdit);
+// handlerPopupMissClick(popupAdd);
+// handlerPopupMissClick(popupAlbum);
 
 
 
