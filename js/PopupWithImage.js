@@ -9,7 +9,7 @@ export class PopupWithImage extends Popup {
   open(link, name) {
     super.open();
     popupAlbumImage.setAttribute('src', link);
-    popupAlbumImage.setAttribute('alt', name); // хз откуда брать их
+    popupAlbumImage.setAttribute('alt', name);
     popupAlbumCaption.textContent = name;
   }
 }

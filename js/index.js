@@ -84,19 +84,18 @@ const popupWithFormAdd = new PopupWithForm(
   }
 )
 
+popupWithFormEdit.setEventListeners();
+
 editButton.addEventListener('click', function() {
   popupWithFormEdit.open();
-
   fillModalEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().profession);
-
   startValid(formProfile);
-  popupWithFormEdit.setEventListeners();
-  ;
 });
+
+popupWithFormAdd.setEventListeners();
 
 addButton.addEventListener('click', function() {
   popupWithFormAdd.open();
-  popupWithFormAdd.setEventListeners();
   startValid(formAdd);
 });
 

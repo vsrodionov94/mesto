@@ -15,7 +15,7 @@ export class Popup {
 
   _handleEscClose (event) {
     if (event.key === 'Escape'){
-      this._popup.classList.remove('modal_opened');
+      this.close();
     }
 }
 
