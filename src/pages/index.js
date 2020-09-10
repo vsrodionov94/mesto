@@ -35,10 +35,10 @@ function createCard(item) {
 
 // создаем экземпляр класса для валидации формы редактирования профиля
 const validFormEdit = new FormValidator(formData, formProfile);
-
+validFormEdit.enableValidation();
 // создаем экземпляр класса для валидации формы добавления
 const validFormAdd = new FormValidator(formData, formAdd);
-
+validFormAdd.enableValidation();
 // создаем экземпляр класса для контейнера с карточками
 const cardList = new Section({
   items: initialCards,
@@ -77,14 +77,14 @@ popupWithFormEdit.setEventListeners();
 editButton.addEventListener('click', function() {
   popupWithFormEdit.open();
   fillPopupEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().profession);
-  validFormEdit.enableValidation();
+
 });
 
 popupWithFormAdd.setEventListeners();
 
 addButton.addEventListener('click', function() {
   popupWithFormAdd.open();
-  validFormAdd.enableValidation();
+
 });
 
 
