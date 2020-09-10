@@ -3,13 +3,10 @@ import './index.css';
 import {
   editButton,
   addButton,
-  popupEdit,
   fieldName,
   fieldProfession,
   formProfile,
-  popupAdd,
   formAdd,
-  popupAlbum,
   photoContainerSelector,
   initialCards,
   formData
@@ -27,83 +24,68 @@ function fillPopupEdit(name, profession) {
   fieldProfession.value = profession;
 }
 
-// function handlerPopupMissClick(popupName) {
-//   popupName.addEventListener('click', (event) => {
-//     if(event.target.classList.contains('modal')){
-//       toggleModal(popupName);
-//     }
-//   })
-// }
-
-function startValid (formName) {
-  const validForm = new FormValidator(formData, formName);
-  validForm.enableValidation();
-};
-
-const popupWithImage = new PopupWithImage('.modal_assign_album');
-
-const cardList = new Section({
-  items: initialCards,
-  renderer: (item) => {
+function createCard(item) {
     const card = new Card(item, '#photo-item',
     () =>{
       popupWithImage.open(item.link, item.title);
-      popupWithImage.setEventListeners();
     });
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
-    },
-  },
+  }
+
+// создаем экземпляр класса для валидации формы редактирования профиля
+const validFormEdit = new FormValidator(formData, formProfile);
+
+// создаем экземпляр класса для валидации формы добавления
+const validFormAdd = new FormValidator(formData, formAdd);
+
+// создаем экземпляр класса для контейнера с карточками
+const cardList = new Section({
+  items: initialCards,
+  renderer: createCard},
   photoContainerSelector
 );
 
 cardList.renderItems();
 
+// создаем экземпляр класса для информации о пользователе
 const userInfo = new UserInfo(
   '.profile__name-text',
   '.profile__profession'
 );
 
+// создаем экземпляр класса Попапа с формой профиля
 const popupWithFormEdit = new PopupWithForm(
   '.modal_assign_form-eidt',
    (item) => {
-     console.log(item)
      userInfo.setUserInfo(item.name, item.profession);
    }
 );
 
+// создаем экземпляр класса Попапа с формой добавления
 const popupWithFormAdd = new PopupWithForm(
   '.modal_assign_form-add',
-  (item) => {
-    const card = new Card(item, '#photo-item',
-    () =>{
-      popupWithImage.open(item.link, item.title);
-      popupWithImage.setEventListeners();
-    });
-    const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
-  }
+  createCard
 )
 
+// создаем экземпляр класса Попапа с картинкой
+const popupWithImage = new PopupWithImage('.modal_assign_album');
+popupWithImage.setEventListeners();
+// Вешаем слушатели на кнопки открытия и формы
 popupWithFormEdit.setEventListeners();
 
 editButton.addEventListener('click', function() {
   popupWithFormEdit.open();
   fillPopupEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().profession);
-  startValid(formProfile);
+  validFormEdit.enableValidation();
 });
 
 popupWithFormAdd.setEventListeners();
 
 addButton.addEventListener('click', function() {
   popupWithFormAdd.open();
-  startValid(formAdd);
+  validFormAdd.enableValidation();
 });
-
-// handlerPopupMissClick(popupEdit);
-// handlerPopupMissClick(popupAdd);
-// handlerPopupMissClick(popupAlbum);
-
 
 
 

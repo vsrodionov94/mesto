@@ -2,15 +2,15 @@ export const profile = document.querySelector('.profile');
 export const editButton = profile.querySelector('.profile__edit-button');
 export const addButton = profile.querySelector('.profile__add-button')
 
-export const popupEdit = document.querySelector('.modal_assign_form-eidt');
+const popupEdit = document.querySelector('.modal_assign_form-eidt');
 export const fieldName = popupEdit.querySelector('.modal__field_assign_name');
 export const fieldProfession = popupEdit.querySelector('.modal__field_assign_profession');
 export const formProfile = popupEdit.querySelector('.modal__form');
 
-export const popupAdd = document.querySelector('.modal_assign_form-add');
+const popupAdd = document.querySelector('.modal_assign_form-add');
 export const formAdd = popupAdd.querySelector('.modal__form');
 
-export const popupAlbum = document.querySelector('.modal_assign_album');
+const popupAlbum = document.querySelector('.modal_assign_album');
 export const popupAlbumImage = popupAlbum.querySelector('.modal__image');
 export const popupAlbumCaption = popupAlbum.querySelector('.modal__caption');
 export const photoContainerSelector = '.photo__cards';
