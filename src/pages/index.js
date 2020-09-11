@@ -75,8 +75,8 @@ popupWithImage.setEventListeners();
 popupWithFormEdit.setEventListeners();
 
 editButton.addEventListener('click', function() {
-  popupWithFormEdit.open();
   fillPopupEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().profession);
+  setTimeout(popupWithFormEdit.open(), 0);
 
 });
 
@@ -84,7 +84,6 @@ popupWithFormAdd.setEventListeners();
 
 addButton.addEventListener('click', function() {
   popupWithFormAdd.open();
-
 });
 
 
