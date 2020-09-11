@@ -4,7 +4,7 @@
   "description": "* Интро\r * Примененные технологии\r * Планы развития",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
+    "build": "rd /s /q dist && webpack",
     "dev": "webpack-dev-server --open --watch"
   },
   "repository": {
