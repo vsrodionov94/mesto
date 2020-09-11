@@ -22,7 +22,7 @@
 Хочется добавить фотографий своих (хоть и не столь частых) путешествий по России.
 Добавить больше визуальных эффектов;
 
-Ссылка на [проект](https://vsrodionov94.github.io/mesto/index.html)
+Ссылка на [проект](https://vsrodionov94.github.io/mesto/src/index.html)
 
 
 
