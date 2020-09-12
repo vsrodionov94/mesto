@@ -76,14 +76,15 @@ popupWithFormEdit.setEventListeners();
 
 editButton.addEventListener('click', function() {
   fillPopupEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().profession);
-  setTimeout(popupWithFormEdit.open(), 0);
-
+  popupWithFormEdit.open();
+  validFormEdit.activateButton();
 });
 
 popupWithFormAdd.setEventListeners();
 
 addButton.addEventListener('click', function() {
   popupWithFormAdd.open();
+  validFormAdd.deactivateButton();
 });
 
 

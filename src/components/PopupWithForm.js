@@ -16,18 +16,11 @@ export class PopupWithForm extends Popup {
   return this._formValues;
   }
 
-  _hasClearField() {
-    return this._inputList.some(inputElement => {
-      return (inputElement.value === '');
-    })
-  }
-
   setEventListeners() {
     super.setEventListeners();
     this._popup.querySelector('form').addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._handlerSubmit(this._getInputValues());
-
       this.close();
     });
   }
@@ -37,17 +30,5 @@ export class PopupWithForm extends Popup {
     this._inputList.forEach(input => {
       input.value = '';
     });
-  }
-
-  open() {
-    super.open();
-    if(this._hasClearField()){
-      this._popup.querySelector('button').classList.add('modal__submit-button_disabled');
-      this._popup.querySelector('button').disabled = true;
-    }
-    else {
-      this._popup.querySelector('button').classList.remove('modal__submit-button_disabled');
-      this._popup.querySelector('button').disabled = false;
-    }
   }
 }
