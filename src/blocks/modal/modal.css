@@ -9,12 +9,16 @@
 @import url('./__submit-button/modal__submit-button.css');
 @import url('./__image/modal__image.css');
 @import url('./_assign/modal_assign_album.css');
+@import url('./_assign/modal_assign_confirm.css');
+@import url('./_assign/modal_assign_form-add.css');
+@import url('./_assign/modal_assign_form-avatar.css');
 @import url('./__large-photo/modal__large-photo.css');
 @import url('./__caption/modal__caption.css');
 @import url('./__field/_type/modal__field_type_error.css');
 @import url('./__field-error/modal__field-error.css');
 @import url('./__field-error/_active/modal__field-error_active.css');
 @import url('./__submit-button/_disabled/modal__submit-button_disabled.css');
+@import url('./__confirm-text/modal__confirm-text.css');
 
 .modal {
   display: flex;

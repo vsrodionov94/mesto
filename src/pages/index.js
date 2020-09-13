@@ -87,5 +87,27 @@ addButton.addEventListener('click', function() {
   validFormAdd.deactivateButton();
 });
 
+// получаем информацию о пользователе
+fetch('https://mesto.nomoreparties.co/v1/cohort-15/users/me', {
+  headers: {
+    authorization: '87805956-615a-41b3-9626-fd0494106fb1'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  });
 
+
+
+// получаем карточки
+fetch('https://mesto.nomoreparties.co/v1/cohort-15/cards', {
+  headers: {
+    authorization: '87805956-615a-41b3-9626-fd0494106fb1'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  });
 

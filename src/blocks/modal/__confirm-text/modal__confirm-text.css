@@ -1,0 +1,21 @@
+.modal__confirm-text {
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  margin-top: 34px;
+  margin-bottom: 18px;
+  width: 358px;
+
+}
+
+@media screen and (max-width: 570px) {
+  .modal__confirm-text {
+    margin-top: 30px;
+    margin-bottom: 18px;
+    text-align: center;
+    width: 200px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

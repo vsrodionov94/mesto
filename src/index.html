@@ -13,7 +13,10 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="images/avatar.jpg" alt="Аватар" class="profile__avatar">
+        <div class="profile__avatar">
+          <img src="images/avatar.jpg" alt="Аватар" class="profile__avatar-image">
+          <button class="profile__avatar-edit-button" type="button" aria-label="Изменить"></button>
+        </div>
         <div class="profile__info">
           <div class="profile__name">
             <h1 class="profile__name-text">Жак-Ив Кусто</h1>
@@ -49,7 +52,7 @@
             <input type="url" class="modal__field modal__field_assign_link" placeholder="Ссылка на картинку"
             name="link" id="field-link" required>
             <p class='modal__field-error' id='field-link-error'></p>
-            <button type="submit" class="modal__submit-button">Сохранить</button>
+            <button type="submit" class="modal__submit-button">Создать</button>
             <button class="modal__esc-button" type="button" aria-label="Закрыть"></button>
           </form>
       </section>
@@ -60,6 +63,23 @@
           <p class="modal__caption"></p>
         </div>
       </section>
+      <section class="modal modal_assign_confirm">
+        <form class="modal__form">
+          <h3 class="modal__confirm-text">Вы уверены?</h3>
+          <button type="submit" class="modal__submit-button">Сохранить</button>
+          <button class="modal__esc-button" type="button" aria-label="Закрыть"></button>
+        </form>
+      </section>
+      <section class="modal modal_assign_form-avatar">
+        <form class="modal__form" name="avatar-form" novalidate>
+          <h3 class="modal__title">Обновить аватар</h3>
+          <input type="url" class="modal__field modal__field_assign_link" placeholder="Ссылка на картинку"
+          name="link" id="field-link" required>
+          <p class='modal__field-error' id='field-link-error'></p>
+          <button type="submit" class="modal__submit-button">Сохранить</button>
+          <button class="modal__esc-button" type="button" aria-label="Закрыть"></button>
+        </form>
+    </section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020. Mesto Russia</p>
@@ -71,7 +91,10 @@
       <img class="photo__image">
       <div class="photo__caption">
         <h2 class="photo__text"></h2>
-        <button class="photo__like-button" type="button"></button>
+        <div>
+          <button class="photo__like-button" type="button"></button>
+          <p class="photo__like-counter">0</p>
+        </div>
       </div>
     </li>
   </template>

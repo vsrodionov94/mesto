@@ -6,6 +6,7 @@
 @import url('./__like-button/_active/photo__like-button_active.css');
 @import url('./__delete-button/photo__delete-button.css');
 @import url('./__cards/photo__cards.css');
+@import url('./__like-counter/photo__like-counter.css');
 
 .photo {
   max-width: 882px;
