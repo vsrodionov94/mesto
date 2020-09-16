@@ -35,11 +35,22 @@ const userInfo = new UserInfo(
   '.profile__profession'
 );
 
+
 apiInfo
 .getData()
 .then((data)=> {
   userInfo.setUserInfo(data.name, data.about);
+  avatar.setAttribute('src', data.avatar)
 })
+
+const apiAvatar = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-15/users/me/avatar',
+  headers: {
+    authorization: '87805956-615a-41b3-9626-fd0494106fb1',
+    "Content-type": "application/json"
+    }
+})
+
 
 const apiCard = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-15/cards',
@@ -101,6 +112,8 @@ const popupWithFormEdit = new PopupWithForm(
    apiInfo
 );
 
+
+
 // создаем экземпляр класса Попапа с формой добавления
 const popupWithFormAdd = new PopupWithForm(
   '.modal_assign_form-add',
@@ -112,14 +125,17 @@ const popupWithFormAdd = new PopupWithForm(
 const popupWithImage = new PopupWithImage('.modal_assign_album');
 popupWithImage.setEventListeners();
 // Вешаем слушатели на кнопки открытия и формы
-popupWithFormEdit.setEventListeners();
+popupWithFormEdit.setEventListenersPatch();
 
 // создаем экземпляр для попапа с редактированием аватара
 const popupWithFormAvatar = new PopupWithForm(
   '.modal_assign_form-avatar',
-
+  (data) =>{
+    avatar.setAttribute('src', data.avatar)
+  },
+  apiAvatar
 )
-popupWithFormAvatar.setEventListeners();
+popupWithFormAvatar.setEventListenersPatch();
 
 editButton.addEventListener('click', function() {
   fillPopupEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().about);
@@ -127,7 +143,7 @@ editButton.addEventListener('click', function() {
   validFormEdit.activateButton();
 });
 
-popupWithFormAdd.setEventListeners();
+popupWithFormAdd.setEventListenersPost();
 
 addButton.addEventListener('click', function() {
   popupWithFormAdd.open();

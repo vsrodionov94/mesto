@@ -1,3 +1,4 @@
+import { formAdd } from '../utils/constants.js';
 import { Popup } from './Popup.js';
 
 export class PopupWithForm extends Popup {
@@ -13,7 +14,14 @@ export class PopupWithForm extends Popup {
     this._api
     .addData(this._getInputValues())
     .then((data) => {
-      console.log(data)
+      this._handlerSubmit(data);
+    })
+  }
+
+  _postInputsData() { // решить проблему с пост и паф
+    this._api
+    .addCard(this._getInputValues())
+    .then((data) => {
       this._handlerSubmit(data);
     })
   }
@@ -23,15 +31,23 @@ export class PopupWithForm extends Popup {
     this._inputList.forEach(input => {
     this._formValues[input.name] = input.value;
   });
-    console.log(this._formValues);
   return this._formValues;
   }
 
-  setEventListeners() {
+  setEventListenersPost() {
     super.setEventListeners();
     this._popup.querySelector('form').addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._patchInputsData();
+         this._postInputsData();
+      this.close();
+    });
+  }
+
+  setEventListenersPatch() {
+    super.setEventListeners();
+    this._popup.querySelector('form').addEventListener('submit', (evt) => {
+      evt.preventDefault();
+        this._patchInputsData();
       this.close();
     });
   }
