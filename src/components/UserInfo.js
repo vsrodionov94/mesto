@@ -1,20 +1,20 @@
 import { profile } from '../utils/constants.js'
 
 export class UserInfo {
-  constructor (nameSelector, professionSelector) {
+  constructor (nameSelector, aboutSelector) {
     this._nameSelector = nameSelector;
-    this._professionSelector= professionSelector;
+    this._aboutSelector= aboutSelector;
   }
 
   getUserInfo() {
     return {
       name : profile.querySelector(this._nameSelector).textContent,
-      profession : profile.querySelector(this._professionSelector).textContent
+      about : profile.querySelector(this._aboutSelector).textContent,
     }
   }
 
-  setUserInfo(newName, newProfession) {
+  setUserInfo(newName, newAbout) {
     profile.querySelector(this._nameSelector).textContent = newName;
-    profile.querySelector(this._professionSelector).textContent = newProfession;
+    profile.querySelector(this._aboutSelector).textContent = newAbout;
   }
 }
