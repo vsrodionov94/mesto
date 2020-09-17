@@ -68,7 +68,8 @@ apiCard
     items: data.map((item) => {
       return {
         name: item.name,
-        link: item.link
+        link: item.link,
+        likes: item.likes.length
       }
     }),
     renderer: createCard},
@@ -85,7 +86,7 @@ function createCard(item) {
     const card = new Card(item, '#photo-item',
     () =>{
       popupWithImage.open(item.link, item.name);
-    });
+    }, apiCard);
     const cardElement = card.generateCard();
     document.querySelector(photoContainerSelector).prepend(cardElement); // здесь поправить надо
 }

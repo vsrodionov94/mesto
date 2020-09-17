@@ -1,11 +1,12 @@
 
 export class Card {
-  constructor ({name, link}, templateSelector, handleCardClick, api) {
+  constructor ({name, link, likes}, templateSelector, handleCardClick, api) {
     this._name = name;
     this._link = link;
+    this._likes = likes;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._api = api;
+
   }
 
   _getTemplate() {
@@ -42,12 +43,12 @@ export class Card {
     this._photoCardElementImage = this._photoCardElement.querySelector('.photo__image')
     this._photoCardElementImage.setAttribute('src', this._link);
     this._photoCardElementImage.setAttribute('alt', this._name);
-    this._photoCardElement.querySelector('.photo__text').textContent = this._name;;
+    this._photoCardElement.querySelector('.photo__text').textContent = this._name;
     this._likeButton = this._photoCardElement.querySelector('.photo__like-button');
     this._likeCounter = this._photoCardElement.querySelector('.photo__like-counter');
+    this._likeCounter.textContent = this._likes;
     this._deleteButton = this._photoCardElement.querySelector('.photo__delete-button');
     this._photoCard = this._photoCardElement.querySelector('.photo__item');
-
     this._setEventListeners();
     return this._photoCardElement
 
