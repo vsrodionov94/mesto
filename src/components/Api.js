@@ -42,8 +42,9 @@ export class Api {
     .then(onError)
     .catch(() => alert('server vse'))
   }
+
   removeCard(id) {
-    return fetch(this._url, {
+    return fetch(`${this._url}${id}`, {
       method: "DELETE",
       headers: this._headers,
     }).then(onError)

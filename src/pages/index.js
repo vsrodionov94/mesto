@@ -21,6 +21,7 @@ import { PopupWithForm } from '../components/PopupWithForm.js'
 import { UserInfo } from '../components/UserInfo.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { Api } from '../components/Api.js';
+import { PopupWithConfirm } from './../components/PopupWithConfirm.js';
 
 const apiInfo = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-15/users/me',
@@ -69,7 +70,9 @@ apiCard
       return {
         name: item.name,
         link: item.link,
-        likes: item.likes.length
+        likes: item.likes.length,
+        id: item._id,
+        ownerId: item.owner._id,
       }
     }),
     renderer: createCard},
@@ -82,14 +85,25 @@ function fillPopupEdit(name, profession) {
   fieldProfession.value = profession;
 }
 
+export const popupWithConfirmDelete = new PopupWithConfirm(
+  '.modal_assign_confirm-delete',
+  apiCard
+)
+
+popupWithConfirmDelete.setEventListeners()
+
 function createCard(item) {
-    const card = new Card(item, '#photo-item',
-    () =>{
-      popupWithImage.open(item.link, item.name);
-    }, apiCard);
-    const cardElement = card.generateCard();
-    document.querySelector(photoContainerSelector).prepend(cardElement); // здесь поправить надо
+  const card = new Card(item, '#photo-item',
+  () =>{
+    popupWithImage.open(item.link, item.name);
+  }, popupWithConfirmDelete, apiCard, userInfo);
+  const cardElement = card.generateCard();
+  document.querySelector(photoContainerSelector).prepend(cardElement); // здесь поправить надо
 }
+
+
+
+
 
 // создаем экземпляр класса для валидации формы редактирования профиля
 const validFormEdit = new FormValidator(formData, formProfile);
@@ -137,6 +151,7 @@ const popupWithFormAvatar = new PopupWithForm(
   apiAvatar
 )
 popupWithFormAvatar.setEventListenersPatch();
+
 
 editButton.addEventListener('click', function() {
   fillPopupEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().about);

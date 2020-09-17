@@ -20,6 +20,7 @@ const popupAlbum = document.querySelector('.modal_assign_album');
 export const popupAlbumImage = popupAlbum.querySelector('.modal__image');
 export const popupAlbumCaption = popupAlbum.querySelector('.modal__caption');
 export const photoContainerSelector = '.photo__cards';
+
 export const initialCards = [
   {
     title: 'Архыз',
