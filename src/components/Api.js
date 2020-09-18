@@ -16,9 +16,6 @@ export class Api {
       headers: this._headers,
       method: "GET"
     }).then(onError)
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
 }
 
   addData(data) {
@@ -28,9 +25,6 @@ export class Api {
       body: JSON.stringify(data),
     })
     .then(onError)
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
   }
 
   addCard(data) {
@@ -40,9 +34,6 @@ export class Api {
       body: JSON.stringify(data),
     })
     .then(onError)
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
   }
 
   removeCard(id) {
@@ -50,9 +41,6 @@ export class Api {
       method: "DELETE",
       headers: this._headers,
     }).then(onError)
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
   }
 
   putLike(id) {
@@ -60,9 +48,6 @@ export class Api {
       method: "PUT",
       headers: this._headers,
     }).then(onError)
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
   }
 
   removeLike(id) {
@@ -70,8 +55,5 @@ export class Api {
       method: "DELETE",
       headers: this._headers,
     }).then(onError)
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    })
   }
 }

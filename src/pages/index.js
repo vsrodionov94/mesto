@@ -9,7 +9,6 @@ import {
   formAdd,
   formConfirmDelete,
   photoContainerSelector,
-  initialCards,
   formData,
   avatar,
   avatarButton, formEditAvatar
@@ -37,6 +36,9 @@ const handleLikeClick = (el, id, counter, likes) => {
     .removeLike(id)
     .then(data => {
       counter.textContent = data.likes.length
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
     });
   } else {
     el.classList.add('photo__like-button_active');
@@ -44,6 +46,9 @@ const handleLikeClick = (el, id, counter, likes) => {
     .putLike(id)
     .then(data => {
       counter.textContent = data.likes.length
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
     });
   }
 }
@@ -52,7 +57,11 @@ const handleConfirmDeleteCard = (id, el) => {
   formConfirmDelete.addEventListener('submit', evt => {
     evt.preventDefault();
       apiCard
-      .removeCard(id);
+      .removeCard(id)
+      .catch((err) => {
+        console.log(err); // выведем ошибку в консоль
+      });
+
       el.remove();
       el = null;
       popupWithConfirmDelete.close();
@@ -65,6 +74,33 @@ const handleDeleteClick = (id, el) => {
 }
 
 
+const fillPopupEdit = (name, profession) => {
+  fieldName.value = name;
+  fieldProfession.value = profession;
+}
+
+const createCard = (item) => {
+  const card = new Card(
+  item,
+  '#photo-item',
+  handleCardClick,
+  handleLikeClick,
+  handleDeleteClick,
+  handleConfirmDeleteCard,
+  apiInfo);
+
+  const cardElement = card.generateCard();
+  document.querySelector(photoContainerSelector).prepend(cardElement); // здесь поправить надо
+}
+
+const handlerSubmitEditForm = (data) => {
+  userInfo.setUserInfo(data.name, data.about);
+}
+
+const handlerSubmitAvatarForm = (data) =>{
+  avatar.setAttribute('src', data.avatar);
+}
+// Экземпляры классов для Api
 const apiInfo = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-15/users/me',
   headers: {
@@ -73,19 +109,13 @@ const apiInfo = new Api({
   }
 })
 
-const userInfo = new UserInfo(
-  '.profile__name-text',
-  '.profile__profession'
-);
-
 const apiAvatar = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-15/users/me/avatar',
   headers: {
     authorization: '87805956-615a-41b3-9626-fd0494106fb1',
     "Content-type": "application/json"
     }
-})
-
+});
 
 const apiCard = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-15/cards',
@@ -95,59 +125,11 @@ const apiCard = new Api({
 }
 });
 
-// Рендер карточек начальный
-apiCard
-.getData()
-.then((data) => {
-  const cardSection = new Section({
-    items: data.map((item) => {
-      return {
-        name: item.name,
-        link: item.link,
-        likes: item.likes,
-        id: item._id,
-        ownerId: item.owner._id,
-      }
-    }),
-    renderer: createCard},
-    photoContainerSelector);
-    cardSection.renderItems();
-});
-
-apiInfo
-.getData()
-.then((data)=> {
-  userInfo.setUserInfo(data.name, data.about);
-  avatar.setAttribute('src', data.avatar);
-});
-
-function fillPopupEdit(name, profession) {
-  fieldName.value = name;
-  fieldProfession.value = profession;
-}
-
-const popupWithConfirmDelete = new Popup(
-  '.modal_assign_confirm-delete'
-)
-
-popupWithConfirmDelete.setEventListeners()
-
-function createCard(item) {
-  const card = new Card(
-  item,
-  '#photo-item',
-  handleCardClick,
-  handleLikeClick,
-  handleDeleteClick,
-  handleConfirmDeleteCard,
-  apiInfo);
-  const cardElement = card.generateCard();
-  document.querySelector(photoContainerSelector).prepend(cardElement); // здесь поправить надо
-}
-
-
-
-
+// Экземпляр класса информации о пользователе
+const userInfo = new UserInfo(
+  '.profile__name-text',
+  '.profile__profession'
+);
 
 // создаем экземпляр класса для валидации формы редактирования профиля
 const validFormEdit = new FormValidator(formData, formProfile);
@@ -160,50 +142,41 @@ const validFormAvatar = new FormValidator(formData, formEditAvatar);
 validFormAvatar.enableValidation();
 
 
-// создаем экземпляр класса для информации о пользователе
+// создаем экземпляры для попапов и вешаем слушателя
 
-// создаем экземпляр класса Попапа с формой профиля
 const popupWithFormEdit = new PopupWithForm(
   '.modal_assign_form-eidt',
-  (data) => {
-    userInfo.setUserInfo(data.name, data.about);
-  },
+  handlerSubmitEditForm,
    apiInfo
 );
+popupWithFormEdit.setEventListenersPatch();
 
-
-
-// создаем экземпляр класса Попапа с формой добавления
 const popupWithFormAdd = new PopupWithForm(
   '.modal_assign_form-add',
   createCard,
   apiCard
 )
+popupWithFormAdd.setEventListenersPost();
 
-// создаем экземпляр класса Попапа с картинкой
 const popupWithImage = new PopupWithImage('.modal_assign_album');
 popupWithImage.setEventListeners();
-// Вешаем слушатели на кнопки открытия и формы
-popupWithFormEdit.setEventListenersPatch();
 
-// создаем экземпляр для попапа с редактированием аватара
 const popupWithFormAvatar = new PopupWithForm(
   '.modal_assign_form-avatar',
-  (data) =>{
-    avatar.setAttribute('src', data.avatar)
-  },
+  handlerSubmitAvatarForm,
   apiAvatar
 )
 popupWithFormAvatar.setEventListenersPatch();
 
+const popupWithConfirmDelete = new Popup('.modal_assign_confirm-delete');
+popupWithConfirmDelete.setEventListeners();
 
+// вешаем слушаетели на кнопки
 editButton.addEventListener('click', function() {
   fillPopupEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().about);
   popupWithFormEdit.open();
   validFormEdit.activateButton();
 });
-
-popupWithFormAdd.setEventListenersPost();
 
 addButton.addEventListener('click', function() {
   popupWithFormAdd.open();
@@ -214,5 +187,38 @@ avatarButton.addEventListener('click', function() {
   popupWithFormAvatar.open();
   validFormAvatar.deactivateButton();
 })
+
+// Рендер карточек начальный
+apiCard
+  .getData()
+  .then((data) => {
+    const cardSection = new Section({
+      items: data.map((item) => {
+        return {
+          name: item.name,
+          link: item.link,
+          likes: item.likes,
+          id: item._id,
+          ownerId: item.owner._id,
+        }
+      }),
+      renderer: createCard},
+      photoContainerSelector);
+      cardSection.renderItems();
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
+
+// получаем и устанавливаем информацию о пользователе
+apiInfo
+  .getData()
+  .then((data)=> {
+    userInfo.setUserInfo(data.name, data.about);
+    avatar.setAttribute('src', data.avatar);
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  });
 
 

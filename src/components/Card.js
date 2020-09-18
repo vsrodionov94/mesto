@@ -80,6 +80,9 @@ export class Card {
       if (this._isLiked(data._id)) {
         this._likeButton.classList.add('photo__like-button_active');
       }
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
     });
     this._photoCard = this._photoCardElement.querySelector('.photo__item');
     this._setEventListeners();

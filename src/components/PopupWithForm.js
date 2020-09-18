@@ -15,6 +15,9 @@ export class PopupWithForm extends Popup {
     .then((data) => {
       this._handlerSubmit(data);
     })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
   }
 
   _postInputsData() { // решить проблему с пост и паф
@@ -22,6 +25,9 @@ export class PopupWithForm extends Popup {
     .addCard(this._getInputValues())
     .then((data) => {
       this._handlerSubmit(data);
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
     })
   }
 
