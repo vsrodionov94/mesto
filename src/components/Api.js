@@ -44,7 +44,21 @@ export class Api {
   }
 
   removeCard(id) {
-    return fetch(`${this._url}${id}`, {
+    return fetch(`${this._url}/${id}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(onError)
+  }
+
+  putLike(id) {
+    return fetch(`${this._url}/likes/${id}`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(onError)
+  }
+
+  removeLike(id) {
+    return fetch(`${this._url}/likes/${id}`, {
       method: "DELETE",
       headers: this._headers,
     }).then(onError)

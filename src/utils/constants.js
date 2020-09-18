@@ -15,6 +15,8 @@ export const formProfile = popupEdit.querySelector('.modal__form');
 const popupAdd = document.querySelector('.modal_assign_form-add');
 export const formAdd = popupAdd.querySelector('.modal__form');
 
+const popupConfirmDelete = document.querySelector('.modal_assign_confirm-delete')
+export const formConfirmDelete = popupConfirmDelete.querySelector('.modal__form');
 
 const popupAlbum = document.querySelector('.modal_assign_album');
 export const popupAlbumImage = popupAlbum.querySelector('.modal__image');

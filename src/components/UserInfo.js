@@ -4,7 +4,6 @@ export class UserInfo {
   constructor (nameSelector, aboutSelector, id) {
     this._nameSelector = nameSelector;
     this._aboutSelector= aboutSelector;
-    this._id = id;
   }
 
   getUserInfo() {
@@ -17,9 +16,5 @@ export class UserInfo {
   setUserInfo(newName, newAbout) {
     profile.querySelector(this._nameSelector).textContent = newName;
     profile.querySelector(this._aboutSelector).textContent = newAbout;
-  }
-
-  getId() {
-    return this._id;
   }
 }

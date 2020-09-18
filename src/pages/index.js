@@ -7,6 +7,7 @@ import {
   fieldProfession,
   formProfile,
   formAdd,
+  formConfirmDelete,
   photoContainerSelector,
   initialCards,
   formData,
@@ -21,7 +22,44 @@ import { PopupWithForm } from '../components/PopupWithForm.js'
 import { UserInfo } from '../components/UserInfo.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { Api } from '../components/Api.js';
-import { PopupWithConfirm } from './../components/PopupWithConfirm.js';
+import { Popup } from './../components/Popup.js';
+
+//функции
+
+const handleCardClick = (item) => {
+  popupWithImage.open(item.link, item.name);
+}
+
+const handleLikeClick = (el, id, counter, likes) => {
+  if (el.classList.contains('photo__like-button_active')) {
+    el.classList.remove('photo__like-button_active');
+    apiCard
+    .removeLike(id);
+    counter.textContent = likes--;
+  } else {
+    el.classList.add('photo__like-button_active');
+    apiCard
+    .putLike(id);
+    counter.textContent = likes + 1;
+  }
+}
+
+const handleConfirmDeleteCard = (id, el) => {
+  formConfirmDelete.addEventListener('submit', evt => {
+    evt.preventDefault();
+      apiCard
+      .removeCard(id);
+      el.remove();
+      el = null;
+      popupWithConfirmDelete.close();
+  })
+}
+
+const handleDeleteClick = (id, el) => {
+  popupWithConfirmDelete.open();
+  handleConfirmDeleteCard(id, el);
+}
+
 
 const apiInfo = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-15/users/me',
@@ -35,14 +73,6 @@ const userInfo = new UserInfo(
   '.profile__name-text',
   '.profile__profession'
 );
-
-
-apiInfo
-.getData()
-.then((data)=> {
-  userInfo.setUserInfo(data.name, data.about);
-  avatar.setAttribute('src', data.avatar)
-})
 
 const apiAvatar = new Api({
   url: 'https://mesto.nomoreparties.co/v1/cohort-15/users/me/avatar',
@@ -70,7 +100,7 @@ apiCard
       return {
         name: item.name,
         link: item.link,
-        likes: item.likes.length,
+        likes: item.likes,
         id: item._id,
         ownerId: item.owner._id,
       }
@@ -80,23 +110,33 @@ apiCard
     cardSection.renderItems();
 });
 
+apiInfo
+.getData()
+.then((data)=> {
+  userInfo.setUserInfo(data.name, data.about);
+  avatar.setAttribute('src', data.avatar);
+});
+
 function fillPopupEdit(name, profession) {
   fieldName.value = name;
   fieldProfession.value = profession;
 }
 
-export const popupWithConfirmDelete = new PopupWithConfirm(
-  '.modal_assign_confirm-delete',
-  apiCard
+const popupWithConfirmDelete = new Popup(
+  '.modal_assign_confirm-delete'
 )
 
 popupWithConfirmDelete.setEventListeners()
 
 function createCard(item) {
-  const card = new Card(item, '#photo-item',
-  () =>{
-    popupWithImage.open(item.link, item.name);
-  }, popupWithConfirmDelete, apiCard, userInfo);
+  const card = new Card(
+  item,
+  '#photo-item',
+  handleCardClick,
+  handleLikeClick,
+  handleDeleteClick,
+  handleConfirmDeleteCard,
+  apiInfo);
   const cardElement = card.generateCard();
   document.querySelector(photoContainerSelector).prepend(cardElement); // здесь поправить надо
 }
@@ -170,30 +210,5 @@ avatarButton.addEventListener('click', function() {
   popupWithFormAvatar.open();
   validFormAvatar.deactivateButton();
 })
-
-
-
-// получаем информацию о пользователе с сервера
-
-
-// const cardSection = new Section({
-//   items: listItems,
-//   renderer: createCard},
-//   photoContainerSelector);
-
-// cardSection.renderItems()
-
-// получаем информацию о пользователе
-// fetch('https://mesto.nomoreparties.co/v1/cohort-15/users/me', {
-//   headers: {
-//     authorization: '87805956-615a-41b3-9626-fd0494106fb1'
-//   }
-// })
-//   .then(res => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   });
-
-
 
 
