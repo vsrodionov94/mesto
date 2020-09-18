@@ -1,4 +1,4 @@
-// import './index.css';
+import './index.css';
 
 import {
   editButton,
@@ -90,7 +90,7 @@ const createCard = (item) => {
   apiInfo);
 
   const cardElement = card.generateCard();
-  document.querySelector(photoContainerSelector).prepend(cardElement); // здесь поправить надо
+  document.querySelector(photoContainerSelector).prepend(cardElement);
 }
 
 const handlerSubmitEditForm = (data) => {
@@ -202,8 +202,7 @@ apiCard
           ownerId: item.owner._id,
         }
       }),
-      renderer: createCard},
-      photoContainerSelector);
+      renderer: createCard});
       cardSection.renderItems();
   })
   .catch((err) => {

@@ -9,7 +9,8 @@ export class PopupWithForm extends Popup {
     this._api = api;
   }
 
-  _patchInputsData() { // решить проблему с пост и паф
+  _patchInputsData() {
+    this._popup.querySelector('.modal__submit-button').innerText = 'Сохранение...';
     this._api
     .addData(this._getInputValues())
     .then((data) => {
@@ -18,9 +19,14 @@ export class PopupWithForm extends Popup {
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
+    .finally(()=>{
+      this._popup.querySelector('.modal__submit-button').textContent = 'Сохранить';
+      this.close();
+    })
   }
 
-  _postInputsData() { // решить проблему с пост и паф
+  _postInputsData() {
+    this._popup.querySelector('.modal__submit-button').innerText = 'Сохранение...';
     this._api
     .addCard(this._getInputValues())
     .then((data) => {
@@ -28,6 +34,10 @@ export class PopupWithForm extends Popup {
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
+    })
+    .finally(()=>{
+      this._popup.querySelector('.modal__submit-button').textContent = 'Создать';
+      this.close();
     })
   }
 
@@ -44,7 +54,6 @@ export class PopupWithForm extends Popup {
     this._popup.querySelector('form').addEventListener('submit', (evt) => {
       evt.preventDefault();
       this._postInputsData();
-      this.close();
     });
   }
 
@@ -52,8 +61,7 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
     this._popup.querySelector('form').addEventListener('submit', (evt) => {
       evt.preventDefault();
-        this._patchInputsData();
-      this.close();
+      this._patchInputsData();
     });
   }
 

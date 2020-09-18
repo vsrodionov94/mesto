@@ -70,7 +70,7 @@ export class Card {
     this._likeCounter = this._photoCardElement.querySelector('.photo__like-counter');
     this._likeCounter.textContent = this._likes.length;
     this._deleteButton = this._photoCardElement.querySelector('.photo__delete-button');
-    //скрываем кнопки удалить
+    //скрываем кнопки удалить и ставим лайки
     this._apiUser.getData().then(data=>{
       if (this._ownerId !== data._id) {
         this._deleteButton.style = 'display:none'
@@ -82,7 +82,7 @@ export class Card {
       }
     })
     .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
+      console.log(err);
     });
     this._photoCard = this._photoCardElement.querySelector('.photo__item');
     this._setEventListeners();
