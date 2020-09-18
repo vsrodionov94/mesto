@@ -2,7 +2,7 @@ const onError = (res) => {
   if (res.ok) {
     return res.json();
   }
-  return Promise.reject('Server failed');
+  return Promise.reject(`Ошибка: ${res.status}` );
 }
 
 export class Api {
@@ -15,11 +15,9 @@ export class Api {
     return fetch(this._url, {
       headers: this._headers,
       method: "GET"
-    }).then((res) => {
-      if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject('Server failed');
+    }).then(onError)
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
     })
 }
 
@@ -30,7 +28,9 @@ export class Api {
       body: JSON.stringify(data),
     })
     .then(onError)
-    .catch(() => alert('server vse'))
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
   }
 
   addCard(data) {
@@ -40,7 +40,9 @@ export class Api {
       body: JSON.stringify(data),
     })
     .then(onError)
-    .catch(() => alert('server vse'))
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
   }
 
   removeCard(id) {
@@ -48,6 +50,9 @@ export class Api {
       method: "DELETE",
       headers: this._headers,
     }).then(onError)
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
   }
 
   putLike(id) {
@@ -55,6 +60,9 @@ export class Api {
       method: "PUT",
       headers: this._headers,
     }).then(onError)
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
   }
 
   removeLike(id) {
@@ -62,5 +70,8 @@ export class Api {
       method: "DELETE",
       headers: this._headers,
     }).then(onError)
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
   }
 }

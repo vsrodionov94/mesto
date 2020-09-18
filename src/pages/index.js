@@ -34,13 +34,17 @@ const handleLikeClick = (el, id, counter, likes) => {
   if (el.classList.contains('photo__like-button_active')) {
     el.classList.remove('photo__like-button_active');
     apiCard
-    .removeLike(id);
-    counter.textContent = likes--;
+    .removeLike(id)
+    .then(data => {
+      counter.textContent = data.likes.length
+    });
   } else {
     el.classList.add('photo__like-button_active');
     apiCard
-    .putLike(id);
-    counter.textContent = likes + 1;
+    .putLike(id)
+    .then(data => {
+      counter.textContent = data.likes.length
+    });
   }
 }
 
