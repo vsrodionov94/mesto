@@ -1,7 +1,7 @@
 import { profile } from '../utils/constants.js'
 
 export class UserInfo {
-  constructor (nameSelector, aboutSelector, id) {
+  constructor (nameSelector, aboutSelector) {
     this._nameSelector = nameSelector;
     this._aboutSelector= aboutSelector;
   }

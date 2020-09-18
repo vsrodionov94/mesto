@@ -29,7 +29,7 @@ const handleCardClick = (item) => {
   popupWithImage.open(item.link, item.name);
 }
 
-const handleLikeClick = (el, id, counter, likes) => {
+const handleLikeClick = (el, id, counter) => {
   if (el.classList.contains('photo__like-button_active')) {
     el.classList.remove('photo__like-button_active');
     apiCard

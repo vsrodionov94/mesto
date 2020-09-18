@@ -35,7 +35,7 @@ export class Card {
 
   _setEventListeners(){
     this._likeButton.addEventListener('click', () => {
-      this._handleLikeClick(this._likeButton, this._id, this._likeCounter, this._likes.length);
+      this._handleLikeClick(this._likeButton, this._id, this._likeCounter);
     })
 
     this._deleteButton.addEventListener('click', () => {
