@@ -11,9 +11,8 @@ export class Card {
     templateSelector,
     handleCardClick,
     handleLikeClick,
-    handleDeleteClick,
-    handleConfirmDeleteCard,
-    api) {
+    handleDeleteClick
+    ) {
     this._name = name;
     this._link = link;
     this._likes = likes;
@@ -23,8 +22,6 @@ export class Card {
     this._handleCardClick = handleCardClick;
     this._handleLikeClick = handleLikeClick;
     this._handleDeleteClick = handleDeleteClick;
-    this._handleConfirmDeleteCard = handleConfirmDeleteCard;
-    this._api = api;
   }
 
   _getTemplate() {
@@ -39,7 +36,8 @@ export class Card {
     })
 
     this._deleteButton.addEventListener('click', () => {
-        this._handleDeleteClick(this._id, this);
+
+      this._handleDeleteClick(this._id, this);
     })
 
     this._photoCardElementImage.addEventListener('click', () => {
@@ -82,9 +80,7 @@ export class Card {
     this._deleteButton = this._photoCardElement.querySelector('.photo__delete-button');
     this.howManylikes(this._likes.length);
     //скрываем кнопки удалить и ставим лайки
-    console.log(`Мой:${user._id}, Владелец: ${this._owner._id}`)
     if (this._owner._id === user._id) {
-      console.log('Моё')
       this._deleteButton.classList.add('card__delete-button_state_visible');
       this._deleteButton.classList.remove('card__delete-button_state_hidden');
 

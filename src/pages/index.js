@@ -11,7 +11,8 @@ import {
   photoContainerSelector,
   formData,
   avatar,
-  avatarButton, formEditAvatar
+  avatarButton,
+  formEditAvatar
 } from '../utils/constants.js';
 
 import { Card } from '../components/Card.js';
@@ -33,13 +34,14 @@ const api = new Api({
   }
 });
 
-Promise.all([     //в Promise.all передаем массив промисов которые нужно выполнить
-  api.getUserData(), // Получаем данные пользователя
-  api.getInitialCards() // Получаем карточки с сервера
+// начинаем создавать все только когда полностью загрузится страница
+Promise.all([
+  api.getUserData(),
+  api.getInitialCards()
 ])
 .then((values)=>{
-//функции
 
+  //функции
   const handleSubmitAddNewCard = (inputValues, popup, form) => {
     renderLoading(true, popup);
     api
@@ -85,25 +87,23 @@ Promise.all([     //в Promise.all передаем массив промисо�
     }
   }
 
-  const handleConfirmDeleteCard = (id, el) => {
-    formConfirmDelete.addEventListener('submit', evt => {
+  const handleConfirmDeleteCard = (evt, id, el) => {
       evt.preventDefault();
         api
         .removeCard(id)
         .then(()=>{
+          debugger
           el.removeCard();
           popupWithConfirmDelete.close();
         })
         .catch((err) => {
           console.log(err);
         });
-
-    })
   }
 
   const handleDeleteClick = (id, el) => {
     popupWithConfirmDelete.open();
-    handleConfirmDeleteCard(id, el);
+    formConfirmDelete.addEventListener('submit', (evt) => handleConfirmDeleteCard(evt, id, el))
   }
 
   const fillPopupEdit = (name, profession) => {
@@ -112,7 +112,18 @@ Promise.all([     //в Promise.all передаем массив промисо�
   }
 
   const createCard = (item, isArr) => {
-    const card = new Card(
+    if (isArr) {
+      const card = new Card(
+      item,
+      '#photo-item',
+      handleCardClick,
+      handleLikeClick,
+      handleDeleteClick
+      );
+      const cardElement = card.generateCard(userData);
+      cardSection.addItem(cardElement, isArr);
+    } else {
+      const card = new Card(
       {
         name: item.name,
         link: item.link,
@@ -120,15 +131,14 @@ Promise.all([     //в Promise.all передаем массив промисо�
         id: item._id,
         owner: item.owner,
       },
-    '#photo-item',
-    handleCardClick,
-    handleLikeClick,
-    handleDeleteClick,
-    handleConfirmDeleteCard,
-    api);
-
+      '#photo-item',
+      handleCardClick,
+      handleLikeClick,
+      handleDeleteClick
+    );
     const cardElement = card.generateCard(userData);
     cardSection.addItem(cardElement, isArr);
+    }
   }
 
   const handlerSubmitEditForm = (inputValues, popup, form) => {
@@ -169,16 +179,16 @@ Promise.all([     //в Promise.all передаем массив промисо�
     '.profile__profession'
   );
 
-  // создаем экземпляр класса для валидации формы редактирования профиля
+  // создаем экземпляр класса для валидации форм и запускаем валидацию
   const validFormEdit = new FormValidator(formData, formProfile);
   validFormEdit.enableValidation();
-  // создаем экземпляр класса для валидации формы добавления
+
   const validFormAdd = new FormValidator(formData, formAdd);
   validFormAdd.enableValidation();
 
   const validFormAvatar = new FormValidator(formData, formEditAvatar);
   validFormAvatar.enableValidation();
-    //попадаем сюда когда оба промиса будут выполнены
+
     const [userData, initialCards] = values;
     //Начальный рендер карточек
     const cardSection = new Section({
@@ -198,6 +208,7 @@ Promise.all([     //в Promise.all передаем массив промисо�
     // начальная установка имени и профессии
     userInfo.setUserInfo(userData.name, userData.about);
     avatar.setAttribute('src', userData.avatar);
+
   // создаем экземпляры для попапов и вешаем слушателя
     const popupWithFormEdit = new PopupWithForm(
       '.modal_assign_form-eidt',
