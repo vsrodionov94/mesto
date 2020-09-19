@@ -2,12 +2,10 @@ import { Popup } from './Popup.js';
 
 export class PopupWithForm extends Popup {
 
-  constructor (popupSelector, handlerSubmit, api, section) {
+  constructor (popupSelector, handlerSubmit) {
     super(popupSelector);
     this._handlerSubmit = handlerSubmit;
     this._inputList = Array.from(this._popup.querySelectorAll('.modal__field'));
-    this._section = section;
-    this._api = api;
   }
 
   _getInputValues() {
@@ -22,7 +20,7 @@ export class PopupWithForm extends Popup {
     super.setEventListeners();
     this._popup.querySelector('form').addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._handlerSubmit(this._getInputValues(), this._popup, this,  this._section);
+      this._handlerSubmit(this._getInputValues(), this._popup, this);
     });
   }
 

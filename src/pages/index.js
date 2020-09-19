@@ -92,7 +92,6 @@ Promise.all([
         api
         .removeCard(id)
         .then(()=>{
-          debugger
           el.removeCard();
           popupWithConfirmDelete.close();
         })
@@ -103,7 +102,7 @@ Promise.all([
 
   const handleDeleteClick = (id, el) => {
     popupWithConfirmDelete.open();
-    formConfirmDelete.addEventListener('submit', (evt) => handleConfirmDeleteCard(evt, id, el))
+    formConfirmDelete.addEventListener('submit', (evt) => handleConfirmDeleteCard(evt, id, el));
   }
 
   const fillPopupEdit = (name, profession) => {
@@ -213,16 +212,12 @@ Promise.all([
     const popupWithFormEdit = new PopupWithForm(
       '.modal_assign_form-eidt',
       handlerSubmitEditForm,
-      api,
-      cardSection
     );
     popupWithFormEdit.setEventListeners();
 
     const popupWithFormAdd = new PopupWithForm(
       '.modal_assign_form-add',
       handleSubmitAddNewCard,
-      api,
-      cardSection
     )
     popupWithFormAdd.setEventListeners();
 
@@ -236,7 +231,6 @@ Promise.all([
     const popupWithFormAvatar = new PopupWithForm(
       '.modal_assign_form-avatar',
       handlerSubmitAvatarForm,
-      api
     )
     popupWithFormAvatar.setEventListeners();
 
@@ -245,7 +239,10 @@ Promise.all([
 
     // вешаем слушаетели на кнопки
     editButton.addEventListener('click', function() {
-      fillPopupEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().about);
+      fillPopupEdit(
+        userInfo.getUserInfo().name,
+        userInfo.getUserInfo().about
+      );
       popupWithFormEdit.open();
       validFormEdit.activateButton();
     });
