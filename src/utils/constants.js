@@ -18,9 +18,6 @@ export const formAdd = popupAdd.querySelector('.modal__form');
 const popupConfirmDelete = document.querySelector('.modal_assign_confirm-delete')
 export const formConfirmDelete = popupConfirmDelete.querySelector('.modal__form');
 
-const popupAlbum = document.querySelector('.modal_assign_album');
-export const popupAlbumImage = popupAlbum.querySelector('.modal__image');
-export const popupAlbumCaption = popupAlbum.querySelector('.modal__caption');
 export const photoContainerSelector = '.photo__cards';
 
 export const formData = {

@@ -1,5 +1,3 @@
-import { profile } from '../utils/constants.js'
-
 export class UserInfo {
   constructor (nameSelector, aboutSelector) {
     this._nameSelector = nameSelector;
@@ -8,13 +6,13 @@ export class UserInfo {
 
   getUserInfo() {
     return {
-      name : profile.querySelector(this._nameSelector).textContent,
-      about : profile.querySelector(this._aboutSelector).textContent,
+      name : document.querySelector(this._nameSelector).textContent,
+      about : document.querySelector(this._aboutSelector).textContent,
     }
   }
 
   setUserInfo(newName, newAbout) {
-    profile.querySelector(this._nameSelector).textContent = newName;
-    profile.querySelector(this._aboutSelector).textContent = newAbout;
+    document.querySelector(this._nameSelector).textContent = newName;
+    document.querySelector(this._aboutSelector).textContent = newAbout;
   }
 }

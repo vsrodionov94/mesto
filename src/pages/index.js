@@ -1,4 +1,4 @@
-import './index.css';
+// import './index.css';
 
 import {
   editButton,
@@ -22,8 +22,28 @@ import { UserInfo } from '../components/UserInfo.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { Api } from '../components/Api.js';
 import { Popup } from './../components/Popup.js';
+import { renderLoading } from './../utils/utils.js';
+
+
 
 //функции
+
+const handleSubmitAddNewCard = (inputValues, popup, form, section) => {
+  renderLoading(true, popup);
+  api
+  .addCard(inputValues)
+  .then((data) => {
+    createCard(data, section);
+    form.close();
+  })
+  .catch((err) => {
+    console.log(err); // выведем ошибку в консоль
+  })
+  .finally(()=>{
+    renderLoading(false, popup);
+  })
+}
+
 
 const handleCardClick = (item) => {
   popupWithImage.open(item.link, item.name);
@@ -31,20 +51,22 @@ const handleCardClick = (item) => {
 
 const handleLikeClick = (el, id, counter) => {
   if (el.classList.contains('photo__like-button_active')) {
-    el.classList.remove('photo__like-button_active');
-    apiCard
+
+    api
     .removeLike(id)
     .then(data => {
+      el.classList.remove('photo__like-button_active');
       counter.textContent = data.likes.length
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     });
   } else {
-    el.classList.add('photo__like-button_active');
-    apiCard
+
+    api
     .putLike(id)
     .then(data => {
+      el.classList.add('photo__like-button_active');
       counter.textContent = data.likes.length
     })
     .catch((err) => {
@@ -56,15 +78,16 @@ const handleLikeClick = (el, id, counter) => {
 const handleConfirmDeleteCard = (id, el) => {
   formConfirmDelete.addEventListener('submit', evt => {
     evt.preventDefault();
-      apiCard
+      api
       .removeCard(id)
+      .then(()=>{
+        el.removeCard();
+        popupWithConfirmDelete.close();
+      })
       .catch((err) => {
         console.log(err); // выведем ошибку в консоль
       });
 
-      el.remove();
-      el = null;
-      popupWithConfirmDelete.close();
   })
 }
 
@@ -79,7 +102,7 @@ const fillPopupEdit = (name, profession) => {
   fieldProfession.value = profession;
 }
 
-const createCard = (item) => {
+const createCard = (item, section, isArr) => {
   const card = new Card(
   item,
   '#photo-item',
@@ -87,43 +110,55 @@ const createCard = (item) => {
   handleLikeClick,
   handleDeleteClick,
   handleConfirmDeleteCard,
-  apiInfo);
+  api);
 
   const cardElement = card.generateCard();
-  document.querySelector(photoContainerSelector).prepend(cardElement);
+  section.addItem(cardElement, isArr)
 }
 
-const handlerSubmitEditForm = (data) => {
-  userInfo.setUserInfo(data.name, data.about);
+const handlerSubmitEditForm = (inputValues, popup, form) => {
+  popup.querySelector('.modal__submit-button').innerText = 'Сохранение...';
+    api
+    .setUserData(inputValues)
+    .then((data) => {
+      userInfo.setUserInfo(data.name, data.about);
+      form.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+    .finally(()=>{
+      popup.querySelector('.modal__submit-button').textContent = 'Сохранить';
+
+    })
+
 }
 
-const handlerSubmitAvatarForm = (data) =>{
-  avatar.setAttribute('src', data.avatar);
+const handlerSubmitAvatarForm = (inputValues, popup, form) => {
+  popup.querySelector('.modal__submit-button').innerText = 'Сохранение...';
+    api
+    .setUserAvatar(inputValues)
+    .then((data) => {
+      avatar.setAttribute('src', data.avatar);
+      form.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+    .finally(()=>{
+      popup.querySelector('.modal__submit-button').textContent = 'Сохранить';
+
+    })
+
 }
-// Экземпляры классов для Api
-const apiInfo = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-15/users/me',
+// Экземпляр класса для Api
+const api = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-15',
   headers: {
   authorization: '87805956-615a-41b3-9626-fd0494106fb1',
   "Content-type": "application/json"
   }
 })
-
-const apiAvatar = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-15/users/me/avatar',
-  headers: {
-    authorization: '87805956-615a-41b3-9626-fd0494106fb1',
-    "Content-type": "application/json"
-    }
-});
-
-const apiCard = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-15/cards',
-  headers: {
-  authorization: '87805956-615a-41b3-9626-fd0494106fb1',
-  "Content-type": "application/json"
-}
-});
 
 // Экземпляр класса информации о пользователе
 const userInfo = new UserInfo(
@@ -147,26 +182,31 @@ validFormAvatar.enableValidation();
 const popupWithFormEdit = new PopupWithForm(
   '.modal_assign_form-eidt',
   handlerSubmitEditForm,
-   apiInfo
+  api,
+  // cardSection
 );
-popupWithFormEdit.setEventListenersPatch();
+popupWithFormEdit.setEventListeners();
 
 const popupWithFormAdd = new PopupWithForm(
   '.modal_assign_form-add',
-  createCard,
-  apiCard
+  handleSubmitAddNewCard,
+  api
 )
-popupWithFormAdd.setEventListenersPost();
+popupWithFormAdd.setEventListeners();
 
-const popupWithImage = new PopupWithImage('.modal_assign_album');
+const popupWithImage = new PopupWithImage(
+  '.modal_assign_album',
+  '.modal__image',
+  '.modal__caption'
+);
 popupWithImage.setEventListeners();
 
 const popupWithFormAvatar = new PopupWithForm(
   '.modal_assign_form-avatar',
   handlerSubmitAvatarForm,
-  apiAvatar
+  api
 )
-popupWithFormAvatar.setEventListenersPatch();
+popupWithFormAvatar.setEventListeners();
 
 const popupWithConfirmDelete = new Popup('.modal_assign_confirm-delete');
 popupWithConfirmDelete.setEventListeners();
@@ -189,8 +229,8 @@ avatarButton.addEventListener('click', function() {
 })
 
 // Рендер карточек начальный
-apiCard
-  .getData()
+api
+  .getInitialsCards()
   .then((data) => {
     const cardSection = new Section({
       items: data.map((item) => {
@@ -202,7 +242,8 @@ apiCard
           ownerId: item.owner._id,
         }
       }),
-      renderer: createCard});
+      renderer: createCard},
+      photoContainerSelector);
       cardSection.renderItems();
   })
   .catch((err) => {
@@ -210,8 +251,8 @@ apiCard
   });
 
 // получаем и устанавливаем информацию о пользователе
-apiInfo
-  .getData()
+api
+  .getUserData()
   .then((data)=> {
     userInfo.setUserInfo(data.name, data.about);
     avatar.setAttribute('src', data.avatar);
