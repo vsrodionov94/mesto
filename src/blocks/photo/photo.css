@@ -7,6 +7,8 @@
 @import url('./__delete-button/photo__delete-button.css');
 @import url('./__cards/photo__cards.css');
 @import url('./__like-counter/photo__like-counter.css');
+@import url('./__delete-button/_state/card__delete-button_state_hidden.css');
+@import url('./__delete-button/_state/card__delete-button_state_visible.css');
 
 .photo {
   max-width: 882px;

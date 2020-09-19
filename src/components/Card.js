@@ -69,6 +69,7 @@ export class Card {
     this._photoCard.remove();
     this._photoCard = null;
   }
+
   generateCard() {
     this._photoCardElement = this._getTemplate();
     this._photoCardElementImage = this._photoCardElement.querySelector('.photo__image')
@@ -83,9 +84,11 @@ export class Card {
     //скрываем кнопки удалить и ставим лайки
     this._api.getUserData().then(data=>{
       if (this._ownerId !== data._id) {
-        this._deleteButton.style = 'display:none'
+        this._deleteButton.classList.add('card__delete-button_state_hidden');
+        this._deleteButton.classList.remove('card__delete-button_state_visible');
       } else {
-        this._deleteButton.style = 'display:block'
+        this._deleteButton.classList.add('card__delete-button_state_visible');
+        this._deleteButton.classList.remove('card__delete-button_state_hidden');
       }
       if (this._isLiked(data._id)) {
         this._likeButton.classList.add('photo__like-button_active');

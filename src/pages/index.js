@@ -178,54 +178,7 @@ validFormAvatar.enableValidation();
 
 // создаем экземпляры для попапов и вешаем слушателя
 
-const popupWithFormEdit = new PopupWithForm(
-  '.modal_assign_form-eidt',
-  handlerSubmitEditForm,
-  api,
-  // cardSection
-);
-popupWithFormEdit.setEventListeners();
 
-const popupWithFormAdd = new PopupWithForm(
-  '.modal_assign_form-add',
-  handleSubmitAddNewCard,
-  api
-)
-popupWithFormAdd.setEventListeners();
-
-const popupWithImage = new PopupWithImage(
-  '.modal_assign_album',
-  '.modal__image',
-  '.modal__caption'
-);
-popupWithImage.setEventListeners();
-
-const popupWithFormAvatar = new PopupWithForm(
-  '.modal_assign_form-avatar',
-  handlerSubmitAvatarForm,
-  api
-)
-popupWithFormAvatar.setEventListeners();
-
-const popupWithConfirmDelete = new Popup('.modal_assign_confirm-delete');
-popupWithConfirmDelete.setEventListeners();
-
-// вешаем слушаетели на кнопки
-editButton.addEventListener('click', function() {
-  fillPopupEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().about);
-  popupWithFormEdit.open();
-  validFormEdit.activateButton();
-});
-
-addButton.addEventListener('click', function() {
-  popupWithFormAdd.open();
-  validFormAdd.deactivateButton();
-});
-
-avatarButton.addEventListener('click', function() {
-  popupWithFormAvatar.open();
-  validFormAvatar.deactivateButton();
-})
 
 
 Promise.all([     //в Promise.all передаем массив промисов которые нужно выполнить
@@ -252,8 +205,68 @@ Promise.all([     //в Promise.all передаем массив промисо�
   // начальная установка имени и профессии
   userInfo.setUserInfo(userData.name, userData.about);
   avatar.setAttribute('src', userData.avatar);
+
+  const popupWithFormEdit = new PopupWithForm(
+    '.modal_assign_form-eidt',
+    handlerSubmitEditForm,
+    api,
+    cardSection
+  );
+  popupWithFormEdit.setEventListeners();
+
+  const popupWithFormAdd = new PopupWithForm(
+    '.modal_assign_form-add',
+    handleSubmitAddNewCard,
+    api,
+    cardSection
+  )
+  popupWithFormAdd.setEventListeners();
+
+  const popupWithImage = new PopupWithImage(
+    '.modal_assign_album',
+    '.modal__image',
+    '.modal__caption'
+  );
+  popupWithImage.setEventListeners();
+
+  const popupWithFormAvatar = new PopupWithForm(
+    '.modal_assign_form-avatar',
+    handlerSubmitAvatarForm,
+    api
+  )
+  popupWithFormAvatar.setEventListeners();
+
+  const popupWithConfirmDelete = new Popup('.modal_assign_confirm-delete');
+  popupWithConfirmDelete.setEventListeners();
+
+  // вешаем слушаетели на кнопки
+  editButton.addEventListener('click', function() {
+    fillPopupEdit(userInfo.getUserInfo().name, userInfo.getUserInfo().about);
+    popupWithFormEdit.open();
+    validFormEdit.activateButton();
+  });
+
+  addButton.addEventListener('click', function() {
+    popupWithFormAdd.open();
+    validFormAdd.deactivateButton();
+  });
+
+  avatarButton.addEventListener('click', function() {
+    popupWithFormAvatar.open();
+    validFormAvatar.deactivateButton();
+  })
+
+
+
+
+
+
+
+
+
+
 })
-.catch((err)=>{     й
+.catch((err)=>{
   console.log(err);
 })
 
