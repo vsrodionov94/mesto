@@ -36,7 +36,7 @@ export class Api {
     .then(this._handleResponseData)
   }
 
-  getInitialsCards() {
+  getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers,
       method: "GET"

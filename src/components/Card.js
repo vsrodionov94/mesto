@@ -35,7 +35,7 @@ export class Card {
 
   _setEventListeners(){
     this._likeButton.addEventListener('click', () => {
-      this._handleLikeClick(this._likeButton, this._id, this._likeCounter);
+      this._handleLikeClick(this._likeButton, this._id, this);
     })
 
     this._deleteButton.addEventListener('click', () => {
@@ -60,6 +60,11 @@ export class Card {
     return cardIsliked
   }
 
+  howManylikes(like) {
+    this._likeCounter.textContent = like;
+
+  }
+
   removeCard() {
     this._photoCard.remove();
     this._photoCard = null;
@@ -72,8 +77,9 @@ export class Card {
     this._photoCardElement.querySelector('.photo__text').textContent = this._name;
     this._likeButton = this._photoCardElement.querySelector('.photo__like-button');
     this._likeCounter = this._photoCardElement.querySelector('.photo__like-counter');
-    this._likeCounter.textContent = this._likes.length;
+
     this._deleteButton = this._photoCardElement.querySelector('.photo__delete-button');
+    this.howManylikes(this._likes.length);
     //скрываем кнопки удалить и ставим лайки
     this._api.getUserData().then(data=>{
       if (this._ownerId !== data._id) {

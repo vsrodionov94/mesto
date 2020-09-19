@@ -49,14 +49,13 @@ const handleCardClick = (item) => {
   popupWithImage.open(item.link, item.name);
 }
 
-const handleLikeClick = (el, id, counter) => {
+const handleLikeClick = (el, id, card) => {
   if (el.classList.contains('photo__like-button_active')) {
-
     api
     .removeLike(id)
-    .then(data => {
+    .then((data) => {
       el.classList.remove('photo__like-button_active');
-      counter.textContent = data.likes.length
+      card.howManylikes(data.likes.length);
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
@@ -67,7 +66,7 @@ const handleLikeClick = (el, id, counter) => {
     .putLike(id)
     .then(data => {
       el.classList.add('photo__like-button_active');
-      counter.textContent = data.likes.length
+      card.howManylikes(data.likes.length);
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
@@ -228,37 +227,36 @@ avatarButton.addEventListener('click', function() {
   validFormAvatar.deactivateButton();
 })
 
-// Рендер карточек начальный
-api
-  .getInitialsCards()
-  .then((data) => {
-    const cardSection = new Section({
-      items: data.map((item) => {
-        return {
-          name: item.name,
-          link: item.link,
-          likes: item.likes,
-          id: item._id,
-          ownerId: item.owner._id,
-        }
-      }),
-      renderer: createCard},
-      photoContainerSelector);
-      cardSection.renderItems();
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
 
-// получаем и устанавливаем информацию о пользователе
-api
-  .getUserData()
-  .then((data)=> {
-    userInfo.setUserInfo(data.name, data.about);
-    avatar.setAttribute('src', data.avatar);
-  })
-  .catch((err) => {
-    console.log(err); // выведем ошибку в консоль
-  });
+Promise.all([     //в Promise.all передаем массив промисов которые нужно выполнить
+  api.getUserData(), // Получаем данные пользователя
+  api.getInitialCards() // Получаем карточки с сервера
+])
+.then((values)=>{    //попадаем сюда когда оба промиса будут выполнены
+  const [userData, initialCards] = values;
+  //Начальный рендер карточек
+  const cardSection = new Section({
+    items: initialCards.map((item) => {
+      return {
+        name: item.name,
+        link: item.link,
+        likes: item.likes,
+        id: item._id,
+        ownerId: item.owner._id,
+      }
+    }),
+    renderer: createCard},
+    photoContainerSelector);
+    cardSection.renderItems();
+
+  // начальная установка имени и профессии
+  userInfo.setUserInfo(userData.name, userData.about);
+  avatar.setAttribute('src', userData.avatar);
+})
+.catch((err)=>{     й
+  console.log(err);
+})
+
+
 
 
