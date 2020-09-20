@@ -1,4 +1,4 @@
-const path =require('path'); // подключаем path к конфигу вебпак
+const path = require('path'); // подключаем path к конфигу вебпак
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
