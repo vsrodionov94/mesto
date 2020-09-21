@@ -10,7 +10,6 @@ import {
   formConfirmDelete,
   photoContainerSelector,
   formData,
-  avatar,
   avatarButton,
   formEditAvatar
 } from '../utils/constants.js';
@@ -145,7 +144,7 @@ Promise.all([
       api
       .setUserData(inputValues)
       .then((data) => {
-        userInfo.setUserInfo(data.name, data.about);
+        userInfo.setUserInfo(data.name, data.about, data.avatar);
         form.close();
       })
       .catch((err) => {
@@ -161,7 +160,7 @@ Promise.all([
       api
       .setUserAvatar(inputValues)
       .then((data) => {
-        avatar.setAttribute('src', data.avatar);
+        userInfo.setUserInfo(data.name, data.about, data.avatar);
         form.close();
       })
       .catch((err) => {
@@ -175,7 +174,8 @@ Promise.all([
   // Экземпляр класса информации о пользователе
   const userInfo = new UserInfo(
     '.profile__name-text',
-    '.profile__profession'
+    '.profile__profession',
+    '.profile__avatar-image'
   );
 
   // создаем экземпляр класса для валидации форм и запускаем валидацию
@@ -205,9 +205,7 @@ Promise.all([
       cardSection.renderItems();
 
     // начальная установка имени и профессии
-    userInfo.setUserInfo(userData.name, userData.about);
-    avatar.setAttribute('src', userData.avatar);
-
+    userInfo.setUserInfo(userData.name, userData.about, userData.avatar);
   // создаем экземпляры для попапов и вешаем слушателя
     const popupWithFormEdit = new PopupWithForm(
       '.modal_assign_form-eidt',
