@@ -21,8 +21,8 @@ import { PopupWithForm } from '../components/PopupWithForm.js'
 import { UserInfo } from '../components/UserInfo.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { Api } from '../components/Api.js';
-import { Popup } from './../components/Popup.js';
-import { renderLoading } from './../utils/utils.js';
+import { Popup } from '../components/Popup.js';
+import { renderLoading } from '../utils/utils.js';
 
 // Экземпляр класса для Api
 const api = new Api({
